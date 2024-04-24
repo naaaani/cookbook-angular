@@ -1,1 +1,13 @@
-<p>ingredient-list works!</p>
+<div *ngIf="ingredients">
+    <ul>
+        <li *ngFor="let ingredient of ingredients">
+            {{ingredient.name}}
+            {{ingredient.unitOfMeasure}}
+            {{ingredient.isDairyFree}}
+            {{ingredient.isEggFree}}
+            {{ingredient.isGlutenFree}}
+            {{ingredient.isMeatFree}}
+        </li>
+    </ul>
+
+</div>
