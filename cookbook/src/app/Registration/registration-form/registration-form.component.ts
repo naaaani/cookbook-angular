@@ -1,25 +1,30 @@
 import { Component } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { UserServiceService } from '../user-service.service';
 
 @Component({
   selector: 'app-registration-form',
   standalone: true,
   imports: [ReactiveFormsModule],
   templateUrl: './registration-form.component.html',
-  styleUrl: './registration-form.component.css'
+  styleUrls: ['./registration-form.component.css']
 })
 export class RegistrationFormComponent {
 
-  registerForm = this.formBuilder.group({
-    username: '',
-    password: '',
-  });
+  registerForm: FormGroup;
 
   constructor(
-    private formBuilder : FormBuilder
-  ){}
-
-  onSubmit() : void {
-    console.log(this.registerForm.value)
+    private formBuilder: FormBuilder,
+    private userService: UserServiceService,
+  ){
+    this.registerForm = this.formBuilder.group({
+      username: '',
+      password: '',
+    });
   }
+
+  register(): void {
+    this.userService.register(this.registerForm.value);
+  }  
 }
+
