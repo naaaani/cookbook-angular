@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { UserServiceService } from '../user-service.service';
+import { UserServiceService } from '../user.service';
 
 @Component({
   selector: 'app-registration-form',
@@ -24,7 +24,8 @@ export class RegistrationFormComponent {
   }
 
   register(): void {
-    this.userService.register(this.registerForm.value);
+    console.log(this.registerForm.value);
+    this.userService.register(this.registerForm);
   }  
 }
 
