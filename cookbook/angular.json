@@ -60,7 +60,8 @@
               "buildTarget": "cookbook:build:production"
             },
             "development": {
-              "buildTarget": "cookbook:build:development"
+              "buildTarget": "cookbook:build:development",
+              "proxyConfig": "src/proxy.conf.json"
             }
           },
           "defaultConfiguration": "development"
