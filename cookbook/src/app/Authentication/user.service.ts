@@ -1,19 +1,33 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { FormGroup } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserServiceService {
-  url = "/api/auth/register";
+  registerUrl = "/api/auth/register";
+  loginUrl = "/api/auth/authenticate"
 
   constructor() { 
   }
 
   async register(formdata: FormGroup): Promise<JSON> {    
     const data = await fetch(
-      this.url,
+      this.registerUrl,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",          
+        },
+        body: JSON.stringify(formdata.value)
+      }
+    );
+    return data.json() ?? [];
+  }
+
+  async login(formdata: FormGroup): Promise<JSON> {    
+    const data = await fetch(
+      this.loginUrl,
       {
         method: "POST",
         headers: {
