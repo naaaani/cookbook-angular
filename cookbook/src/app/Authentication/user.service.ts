@@ -1,14 +1,31 @@
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
+interface AuthResponse {
+  username : string,
+  token : string
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class UserServiceService {
+
+
   registerUrl = "/api/auth/register";
   loginUrl = "/api/auth/authenticate"
 
   constructor() { 
+  }
+
+  setLoggedIn() {
+    localStorage.setItem('loggedIn', JSON.stringify(true)); 
+  }
+
+
+  logOut(){
+    localStorage.removeItem("loggedIn");
+    localStorage.removeItem("token")
   }
 
   async register(formdata: FormGroup): Promise<JSON> {    
@@ -25,7 +42,7 @@ export class UserServiceService {
     return data.json() ?? [];
   }
 
-  async login(formdata: FormGroup): Promise<JSON> {    
+  async login(formdata: FormGroup): Promise<AuthResponse> {    
     const data = await fetch(
       this.loginUrl,
       {
@@ -36,6 +53,11 @@ export class UserServiceService {
         body: JSON.stringify(formdata.value)
       }
     );
+    
+    if ( data.ok) { 
+      this.setLoggedIn(); 
+    }
+
     return data.json() ?? [];
   }
 }
