@@ -2,7 +2,7 @@ import { Ingredient } from "../Ingredient/ingredient"
 
 export interface Recipe {
     id ? : number
-    ingredients	 : [Ingredient]
+    ingredients	 : [{ ingredient : Ingredient, amount : number}]
     name : string
     description	: string
     isVegan	: boolean
