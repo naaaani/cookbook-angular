@@ -8,7 +8,7 @@ export class RecipeService {
   url = "/api/recipes";
 
 
-  async getAllIRecipes(): Promise<Recipe> {
+  async getAllRecipes(): Promise<Recipe[]> {
     const data = await fetch(this.url);
     console.log(data);
     
