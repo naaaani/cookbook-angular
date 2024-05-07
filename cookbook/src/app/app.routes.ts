@@ -9,5 +9,5 @@ export const routes: Routes = [
     { path: "ingredients", component: IngredientListComponent },
     { path: "registration", component: RegistrationFormComponent },
     { path: "login", component: LoginFormComponent },
-    { path: "recipes", component: RecipeDetailsComponent },
+    { path: "recipe/:id", component: RecipeDetailsComponent}
 ];

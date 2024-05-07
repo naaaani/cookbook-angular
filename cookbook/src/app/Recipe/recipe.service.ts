@@ -7,7 +7,7 @@ import { Recipe } from './recipe';
 export class RecipeService {
   url = "/api/recipes";
 
-  async getAllIRecipes(): Promise<Recipe[]> {
+  async getAllIRecipes(): Promise<Recipe> {
 
     const data = await fetch(this.url);
     console.log(data);
@@ -15,7 +15,7 @@ export class RecipeService {
     return data.json() ?? [];
   }
 
-  async getRecipe(id : number): Promise<Recipe[]> {
+  async getRecipe(id : number): Promise<Recipe> {
         
     const data = await fetch(this.url + '/' + (id));
     console.log(data);
