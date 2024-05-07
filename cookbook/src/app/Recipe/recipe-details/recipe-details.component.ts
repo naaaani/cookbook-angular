@@ -2,7 +2,7 @@ import { ActivatedRoute } from '@angular/router';
 import { RecipeService } from '../recipe.service';
 import { Component } from '@angular/core';
 import { Recipe } from '../recipe';
-import { NgIf } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-recipe-details',
@@ -10,7 +10,8 @@ import { NgIf } from '@angular/common';
   styleUrls: ['./recipe-details.component.css'],
   standalone: true, 
   imports: [
-    NgIf
+    NgIf,
+    NgFor
   ],
 })
 export class RecipeDetailsComponent {
