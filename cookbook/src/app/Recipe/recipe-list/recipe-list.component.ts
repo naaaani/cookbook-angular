@@ -15,7 +15,12 @@ import { Recipe } from '../recipe';
   styleUrl: './recipe-list.component.css'
 })
 export class RecipeListComponent {
-  recipes: [Recipe] = this.service.getAllRecipes();
+  recipes: Recipe[] = [];
 
-  constructor(private service: RecipeService) {}
+  constructor(private service: RecipeService) {
+    this.service.getAllRecipes()
+    .then((recipeList: Recipe[]) => {
+      this.recipes = recipeList;
+    });
+  }
 }
