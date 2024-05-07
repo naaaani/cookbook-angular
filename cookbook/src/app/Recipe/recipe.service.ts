@@ -15,7 +15,7 @@ export class RecipeService {
     return data.json() ?? [];
   }
 
-  async getRecipe(id: number): Promise<Recipe[]> {
+  async getRecipe(id: number): Promise<Recipe> {
 
     const data = await fetch(this.url + '/' + (id));
     console.log(data);
