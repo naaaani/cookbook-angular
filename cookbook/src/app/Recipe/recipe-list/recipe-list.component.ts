@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { NgFor } from '@angular/common';
 import { RecipeCardComponent } from '../recipe-card/recipe-card.component';
+import { RecipeService } from '../recipe.service';
+import { Recipe } from '../recipe';
 
 @Component({
   selector: 'app-recipe-list',
@@ -13,5 +15,7 @@ import { RecipeCardComponent } from '../recipe-card/recipe-card.component';
   styleUrl: './recipe-list.component.css'
 })
 export class RecipeListComponent {
-  recipes: [Recipe];
+  recipes: [Recipe] = this.service.getAllRecipes();
+
+  constructor(private service: RecipeService) {}
 }
