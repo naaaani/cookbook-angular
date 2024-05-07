@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Recipe } from './recipe';
-import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +7,8 @@ import { HttpClient } from '@angular/common/http';
 export class RecipeService {
   url = "/api/recipes";
 
-  async getAllRecipes(): Promise<Recipe[]> {
+
+  async getAllIRecipes(): Promise<Recipe> {
     const data = await fetch(this.url);
     console.log(data);
     
@@ -23,5 +23,6 @@ export class RecipeService {
     return data.json() ?? [];
   }
 
-  constructor(private http: HttpClient) { }
+  constructor() { }
+
 }
