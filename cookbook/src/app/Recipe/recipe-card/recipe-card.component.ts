@@ -4,6 +4,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { NgIf } from '@angular/common';
 import { Router } from '@angular/router';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-recipe-card',
@@ -11,7 +12,8 @@ import { Router } from '@angular/router';
   imports: [
     MatCardModule,
     MatIconModule,
-    NgIf
+    NgIf,
+    MatTooltipModule
   ],
   templateUrl: './recipe-card.component.html',
   styleUrl: './recipe-card.component.css'
