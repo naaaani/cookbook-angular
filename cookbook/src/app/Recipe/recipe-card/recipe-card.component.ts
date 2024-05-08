@@ -3,6 +3,7 @@ import { Recipe } from '../recipe';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { NgIf } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-recipe-card',
@@ -18,4 +19,10 @@ import { NgIf } from '@angular/common';
 
 export class RecipeCardComponent {
   @Input() recipe?: Recipe;
+
+  constructor(private router: Router) {}
+
+  showDetails(): void {
+    this.router.navigate([`/recipe/${this.recipe?.id}`]);
+  }
 }
