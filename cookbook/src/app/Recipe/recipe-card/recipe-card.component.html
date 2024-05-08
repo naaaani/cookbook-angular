@@ -1,24 +1,28 @@
-<mat-card>
-    <img mat-card-image src="../../../assets/palceholder.svg" alt="picture of food" width="200px">
-    <mat-card-title>
-        {{recipe?.name}}
-    </mat-card-title>
+<mat-card class="recipe-card">
+    <mat-card-header>
+        <img mat-card-image src="../../../assets/palceholder.svg" alt="picture of food" width="200px">
+    </mat-card-header>
+    <mat-card-title-group>
+        <mat-card-title class="card-title">
+            {{recipe?.name}}
+        </mat-card-title>
+    </mat-card-title-group>
     <mat-card-content>
         <span *ngIf="recipe?.isGlutenFree">
-            <mat-icon svgIcon="gluten_free"></mat-icon>
+            <mat-icon matTooltip="Gluten free" svgIcon="gluten_free"></mat-icon>
         </span>
         <span *ngIf="recipe?.isVegan">
-            <mat-icon svgIcon="vegan"></mat-icon>
+            <mat-icon matTooltip="Vegan" svgIcon="vegan"></mat-icon>
         </span>
         <span *ngIf="recipe?.isDairyFree">
-            <mat-icon svgIcon="dairy_free"></mat-icon>
+            <mat-icon matTooltip="Dairy free" svgIcon="dairy_free"></mat-icon>
         </span>
         <span *ngIf="recipe?.isVegetarian">
-            <mat-icon svgIcon="vegetarian"></mat-icon>
+            <mat-icon matTooltip="Vegetarian" svgIcon="vegetarian"></mat-icon>
         </span>
+        <mat-card-actions>
+            <button mat-button (click)="showDetails()"> Check it out</button>
+        </mat-card-actions>
     </mat-card-content>
-    <mat-card-actions>
-        <button mat-button (click)="showDetails()"> Check it out</button>
-    </mat-card-actions>
 
 </mat-card>
