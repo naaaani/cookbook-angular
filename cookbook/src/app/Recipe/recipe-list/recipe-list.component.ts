@@ -4,12 +4,13 @@ import { RecipeCardComponent } from '../recipe-card/recipe-card.component';
 import { RecipeService } from '../recipe.service';
 import { Recipe } from '../recipe';
 
+
 @Component({
   selector: 'app-recipe-list',
   standalone: true,
   imports: [
     NgFor,
-    RecipeCardComponent
+    RecipeCardComponent,
   ],
   templateUrl: './recipe-list.component.html',
   styleUrl: './recipe-list.component.css'
@@ -19,8 +20,8 @@ export class RecipeListComponent {
 
   constructor(private service: RecipeService) {
     this.service.getAllRecipes()
-    .then((recipeList: Recipe[]) => {
-      this.recipes = recipeList;
-    });
+      .then((recipeList: Recipe[]) => {
+        this.recipes = recipeList;
+      });
   }
 }
