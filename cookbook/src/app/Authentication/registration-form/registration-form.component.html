@@ -1,5 +1,19 @@
-<form [formGroup]="registerForm" (ngSubmit)="register()">
-    <input type="text" placeholder="Username" formControlName = "username">
-    <input type="password" placeholder="password" formControlName = "password">
-    <button class="button" type="submit">Submit</button>
-</form>
+<div class="container">
+<form [formGroup]="registerForm" (ngSubmit)="register()" class="register-form" >
+    <mat-card>
+      <mat-card-content>
+        <mat-form-field appearance="fill">
+          <mat-label>Username</mat-label>
+          <input matInput type="text" formControlName="username" placeholder="Username">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Password</mat-label>
+          <input matInput type="password" formControlName="password" placeholder="Password">
+        </mat-form-field>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" type="submit">Submit</button>
+      </mat-card-actions>
+    </mat-card>
+  </form>
+</div>
