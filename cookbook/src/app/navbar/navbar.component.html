@@ -1,4 +1,4 @@
-<mat-toolbar color="primary">
+<mat-toolbar>
   <div class="toolbar-list">
     <ul>
       <li><a routerLink="/" routerLinkActive="active" ariaCurrentWhenActive="page">Home</a>
@@ -10,7 +10,8 @@
       <li><a routerLink="/registration" routerLinkActive="active" ariaCurrentWhenActive="page">Register</a>
       </li>
       <li *ngIf="isLoggedIn; else loginLink;">
-        <button (click)="logOut()">Log out</button>
+        <a (click)="logOut()" routerLink="/" routerLinkActive="active" ariaCurrentWhenActive="page"> Log out
+        </a>
       </li>
       <ng-template #loginLink>
         <li>
