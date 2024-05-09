@@ -10,7 +10,7 @@
       <li><a routerLink="/registration" routerLinkActive="active" ariaCurrentWhenActive="page">Register</a>
       </li>
       <li *ngIf="isLoggedIn; else loginLink;">
-        <button>Log out</button>
+        <button (click)="logOut()">Log out</button>
       </li>
       <ng-template #loginLink>
         <li>

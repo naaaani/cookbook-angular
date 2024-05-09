@@ -28,4 +28,8 @@ export class NavbarComponent implements OnInit {
       (status) => (this.isLoggedIn = status)
     );
   }
+
+  logOut(): void {
+    this.userService.logOut();
+  }
 }
