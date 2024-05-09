@@ -43,21 +43,27 @@ export class UserServiceService {
   }
 
   async login(formdata: FormGroup): Promise<AuthResponse> {    
-    const data = await fetch(
-      this.loginUrl,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",          
-        },
-        body: JSON.stringify(formdata.value)
+    try {
+      const response = await fetch(
+        this.loginUrl,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",          
+          },
+          body: JSON.stringify(formdata.value)
+        }
+      );
+  
+      if (!response.ok) {
+        throw new Error('Login failed');
       }
-    );
-    
-    if ( data.ok) { 
-      this.setLoggedIn(); 
+  
+      this.setLoggedIn();
+      return response.json();
+    } catch (error) {
+      console.error('Login request failed:', error);
+      throw error; 
     }
-
-    return data.json() ?? [];
   }
 }

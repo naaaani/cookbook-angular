@@ -1,0 +1,31 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  }
+
+.register-form {
+    width: 300px; 
+    text-align: center; 
+  }
+  
+  .mat-card {
+    padding: 20px;
+  }
+  
+  .mat-form-field {
+    width: 100%;
+  }
+  
+  .mat-card-actions {
+    justify-content: center; 
+  }
+  
+  button[mat-raised-button] {
+    margin-top: 10px;
+    margin-left: 65px;
+    width: 150px;
+  }
+
+  
