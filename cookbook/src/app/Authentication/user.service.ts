@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { BehaviorSubject } from 'rxjs';
 
 interface AuthResponse {
   username : string,
@@ -9,23 +10,29 @@ interface AuthResponse {
 @Injectable({
   providedIn: 'root'
 })
-export class UserServiceService {
 
-
+export class UserService {
+  private loggedInSubject = new BehaviorSubject<boolean>(false);
   registerUrl = "/api/auth/register";
-  loginUrl = "/api/auth/authenticate"
+  loginUrl = "/api/auth/authenticate";
+  isLoggedIn$ = this.loggedInSubject.asObservable();
 
   constructor() { 
   }
 
-  setLoggedIn() {
-    localStorage.setItem('loggedIn', JSON.stringify(true)); 
+  setLoginStatus(status: boolean) {
+    this.loggedInSubject.next(status);
   }
 
+  setLoggedIn() {
+    localStorage.setItem('loggedIn', JSON.stringify(true)); 
+    this.setLoginStatus(true);
+  }
 
-  logOut(){
+  logOut() {
     localStorage.removeItem("loggedIn");
-    localStorage.removeItem("token")
+    localStorage.removeItem("token");
+    this.setLoginStatus(false);
   }
 
   async register(formdata: FormGroup): Promise<JSON> {    

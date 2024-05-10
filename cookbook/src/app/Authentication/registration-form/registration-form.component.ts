@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, NgModel, ReactiveFormsModule } from '@angular/forms';
-import { UserServiceService } from '../user.service';
+import { UserService } from '../user.service';
 import {MatInputModule} from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { NgIf } from '@angular/common';
@@ -25,7 +25,7 @@ export class RegistrationFormComponent {
 
   constructor(
     private formBuilder: FormBuilder,
-    private userService: UserServiceService,
+    private userService: UserService,
   ){
     this.registerForm = this.formBuilder.group({
       username: '',

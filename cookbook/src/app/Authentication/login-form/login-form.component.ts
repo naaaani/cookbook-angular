@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { UserServiceService } from '../user.service';
+import { UserService } from '../user.service';
 import { Router } from '@angular/router';
 import {MatInputModule} from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
@@ -26,7 +26,7 @@ export class LoginFormComponent {
 
   constructor(
     private formBuilder: FormBuilder,
-    private userService: UserServiceService,
+    private userService: UserService,
     private router : Router, 
   ){
     this.loginForm = this.formBuilder.group({
