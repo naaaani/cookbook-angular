@@ -4,6 +4,7 @@ import { RegistrationFormComponent } from './Authentication/registration-form/re
 import { LoginFormComponent } from './Authentication/login-form/login-form.component';
 import { RecipeDetailsComponent } from './Recipe/recipe-details/recipe-details.component';
 import { RecipeListComponent } from './Recipe/recipe-list/recipe-list.component';
+import { RecipeFormComponent } from './recipe-form/recipe-form.component';
 
 
 export const routes: Routes = [
@@ -11,5 +12,6 @@ export const routes: Routes = [
     { path: "registration", component: RegistrationFormComponent },
     { path: "login", component: LoginFormComponent },
     { path: "recipe/:id", component: RecipeDetailsComponent},
-    { path: "recipes", component: RecipeListComponent }
+    { path: "recipes", component: RecipeListComponent },
+    { path: "newRecipe", component: RecipeFormComponent }
 ];
