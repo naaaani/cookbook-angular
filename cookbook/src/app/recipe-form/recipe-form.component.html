@@ -1,0 +1,10 @@
+<div class="container">
+    <form [formGroup]="recipeForm" (ngSubmit)="save()" class="recipeForm">
+        <div>
+            <img class="preview-image" [src]="imageFile ? imageFile:placeholder">
+            <button type="button" onclick="document.querySelector('#exampleInputFile').click()"></button>
+            <input type="file" id="exampleInputFile" (change)="imagesPreview($event)" style="display: none;">
+        </div>
+        <button mat-raised-button color="primary" type="submit">Log In</button>
+    </form>
+</div>
