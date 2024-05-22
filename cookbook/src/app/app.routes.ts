@@ -4,7 +4,7 @@ import { RegistrationFormComponent } from './Authentication/registration-form/re
 import { LoginFormComponent } from './Authentication/login-form/login-form.component';
 import { RecipeDetailsComponent } from './Recipe/recipe-details/recipe-details.component';
 import { RecipeListComponent } from './Recipe/recipe-list/recipe-list.component';
-import { RecipeFormComponent } from './recipe-form/recipe-form.component';
+import { RecipeFormComponent } from './Recipe/recipe-form/recipe-form.component';
 
 
 export const routes: Routes = [
