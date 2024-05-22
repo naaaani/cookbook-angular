@@ -1,53 +1,29 @@
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { RecipeService } from '../Recipe/recipe.service';
-
+import { Component, Input } from '@angular/core';
+import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
+import { FileUploadComponent } from '../file-upload/file-upload.component';
 
 @Component({
   selector: 'app-recipe-form',
   standalone: true,
   imports: [
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FileUploadComponent
   ],
   templateUrl: './recipe-form.component.html',
   styleUrl: './recipe-form.component.css'
 })
 export class RecipeFormComponent {
-  recipeForm: FormGroup;
-  imageFile!: { link: string; file: any; name: string; };
-  placeholder: string = "../assets/palceholder.svg"
-
-  constructor(
-    private formBuilder: FormBuilder,
-    private recipeService: RecipeService,
-  ) {
-    this.recipeForm = this.formBuilder.group({
-      Title: '',
-      Description: ''
-    });
+  image?: File;
+  
+  addImage(addedImage: File) {
+    this.image = addedImage;
   }
+  
+  // const formData = new FormData();
 
-  imagesPreview(event: any) {
-    if (event.target.files && event.target.files[0]) {
-      const reader = new FileReader();
+  // formData.append("thumbnail", file);
 
-      reader.onload = (_event: any) => {
-        this.imageFile = {
-          link: _event.target.result,
-          file: event.srcElement.files[0],
-          name: event.srcElement.files[0].name
-        };
-      };
-      reader.readAsDataURL(event.target.files[0]);
-    }
-  }
+  constructor(private formBuilder: FormBuilder) {}
 
-  save(): void {
-    const formData = new FormData();
-    formData.append('myImageToSend', this.imageFile.file);
-    formData.append('title', 'Set your title name here');
-    formData.append('description', 'Set your title description here');
-
-    //this.recipeService.postRecipe(formData).subscribe(data => { });
-  }
 }

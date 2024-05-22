@@ -1,5 +1,4 @@
-import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 
 @Component({
@@ -14,24 +13,17 @@ import { MatIcon } from '@angular/material/icon';
 export class FileUploadComponent {
 
   fileName = '';
+  @Output() fileEvent = new EventEmitter<File>();
 
-  constructor(private http: HttpClient) { }
+  constructor() { }
 
   onFileSelected(event: any) {
 
-    const file: File = event.target.files[0];
+    const uploadedFile: File = event.target.files[0];
 
-    if (file) {
-
-      this.fileName = file.name;
-
-      const formData = new FormData();
-
-      formData.append("thumbnail", file);
-
-      const upload$ = this.http.post("/api/thumbnail-upload", formData);
-
-      upload$.subscribe();
+    if (uploadedFile) {
+      this.fileName = uploadedFile.name;
+      this.fileEvent.emit(uploadedFile);
     }
   }
 }
