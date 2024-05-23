@@ -7,6 +7,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-recipe-details',
@@ -26,6 +28,7 @@ export class RecipeDetailsComponent {
   recipe?: Recipe
 
   constructor(
+    private router: Router,
     private route: ActivatedRoute,
     private recipeService: RecipeService
   ) {
@@ -35,9 +38,19 @@ export class RecipeDetailsComponent {
         this.recipeService.getRecipe(id)
           .then((recipe: Recipe) => {
             this.recipe = recipe;
-            console.log(recipe);
           });
       }
     });
+  }
+
+  isLoggedIn () : boolean {
+  if (localStorage.hasOwnProperty("token")) {    
+    return true
+  }
+  return false
+}
+
+  updateRecipe(id : any): void {
+    this.router.navigate([`/update/${id}`]);
   }
 }

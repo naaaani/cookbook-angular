@@ -1,0 +1,47 @@
+<mat-card>
+  <form [formGroup]="recipeForm" (ngSubmit)="saveRecipe(recipe?.id)">
+    <mat-card-header>
+      <img mat-card-image src="../../../assets/placeholder.svg">
+    </mat-card-header>
+    <mat-card-title-group>
+      <mat-card-title class="card-title">{{recipe?.name}}</mat-card-title>
+      <span *ngIf="recipe?.isGlutenFree">
+        <mat-icon svgIcon="gluten_free" matTooltip="Gluten free"></mat-icon>
+      </span>
+      <span *ngIf="recipe?.isDairyFree">
+        <mat-icon svgIcon="dairy_free" matTooltip="Dairy free"></mat-icon>
+      </span>
+      <span *ngIf="recipe?.isVegetarian">
+        <mat-icon svgIcon="vegetarian" matTooltip="Vegetarian"></mat-icon>
+      </span>
+      <span *ngIf="recipe?.isVegan">
+        <mat-icon svgIcon="vegan" matTooltip="Vegan"></mat-icon>
+      </span>
+    </mat-card-title-group>
+    <mat-card-content>
+      <div formArrayName="ingredients">
+        <div *ngFor="let ingredientCtrl of ingredients.controls; let i = index" [formGroupName]="i">
+          <mat-form-field>
+            <input matInput placeholder="Amount" formControlName="amount">
+          </mat-form-field>
+          <div formGroupName="ingredient">
+            <mat-form-field>
+              <input matInput placeholder="Unit" formControlName="unitOfMeasure">
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="Name" formControlName="name">
+            </mat-form-field>
+          </div>
+          <button mat-icon-button color="warn" (click)="removeIngredient(i)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </div>
+      <mat-divider></mat-divider>
+      <mat-form-field>
+        <textarea matInput placeholder="Description" formControlName="description"></textarea>
+      </mat-form-field>
+      <button mat-raised-button color="primary" type="submit">Save</button>
+    </mat-card-content>
+  </form>
+</mat-card>
