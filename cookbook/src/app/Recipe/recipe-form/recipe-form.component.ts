@@ -11,8 +11,6 @@ import { NgFor } from '@angular/common';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { Ingredient } from '../../Ingredient/ingredient';
 
-
-
 @Component({
   selector: 'app-recipe-form',
   standalone: true,
@@ -40,9 +38,14 @@ export class RecipeFormComponent implements OnInit {
     private ingredientService: IngredientService,
   ) {
     this.recipeForm = this.formBuilder.group({
+      id: [0],
       name: ['', Validators.required],
       description: ['', Validators.required],
       ingredients: this.formBuilder.array([]),
+      isVegan: [false],
+      isVegetarian: [false], 
+      isGlutenFree: [false],
+      isDairyFree: [false]
     });
 
     this.ingredientService.getAllIngredients()
@@ -63,8 +66,9 @@ export class RecipeFormComponent implements OnInit {
 
   addIngredient(): void {
     const ingredientGroup = this.formBuilder.group({
-      amount: ['', Validators.required],
-      ingredient: ['', Validators.required]
+      id: [0],
+      ingredient: ['', Validators.required],
+      amount: ['', Validators.required]
     });
     this.ingredients.push(ingredientGroup);
   }
@@ -83,7 +87,10 @@ export class RecipeFormComponent implements OnInit {
 
   submit() {    
     if (this.recipeForm.valid) {
-      console.log(this.recipeForm.value);
+      const createdRecipe = this.recipeForm.value;
+      console.log(createdRecipe);
+
+      this.recipeService.postRecipe(createdRecipe);
     } else {
       console.log("Invalid form");
       this.recipeForm.markAllAsTouched();
