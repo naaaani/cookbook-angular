@@ -1,0 +1,22 @@
+<mat-card>
+  <mat-card-content *ngFor="let ingredient of ingredients; let i = index">
+    <table class="example-full-width" cellspacing="0">
+      <tr>
+        <td><mat-form-field>
+            <mat-label>Amount</mat-label>
+            <input matInput>
+          </mat-form-field></td>
+        <td><mat-form-field>
+            <mat-label>Ingredient</mat-label>
+            <input matInput>
+          </mat-form-field></td>
+        <td><button mat-stroked-button (click)="deleteIngredient(i)"><mat-icon>delete</mat-icon></button>
+        </td>
+      </tr>
+    </table>
+  </mat-card-content>
+  <mat-card-title>Ingredients</mat-card-title>
+  <mat-card-actions align="start">
+    <button (click)="bumpIngredients()"><mat-icon>add</mat-icon>Add ingredient</button>
+  </mat-card-actions>
+</mat-card>
