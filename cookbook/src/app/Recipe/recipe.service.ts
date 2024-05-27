@@ -24,7 +24,7 @@ export class RecipeService {
 
   async postRecipe(recipe: Recipe) {
     console.log("recipe: " + JSON.stringify(recipe));
-    const token = localStorage.getItem("token")
+    const token = localStorage.getItem("token");
     
     fetch(this.url, {
       method: "POST",
