@@ -42,10 +42,10 @@ export class RecipeFormComponent {
     private ingredientService: IngredientService,
   ) {
     this.recipeForm = formBuilder.group({
-      name: '',
-      description: '',
+      name: [''],
+      description: [''],
       ingredients: this.formBuilder.array([]),
-    })
+    });
 
     this.ingredientService.getAllIngredients()
       .then(data => this.savedIngredients = data);
@@ -55,18 +55,14 @@ export class RecipeFormComponent {
     return this.recipeForm.controls["ingredients"] as FormArray;
   }
 
-  addImage(addedImage: File) {
-    this.image = addedImage;
-  }
-
   addIngredient() {
     const ingredientForm: FormGroup = this.formBuilder.group({
-      amount: '',
-      ingredient: ''
+      amount: [''],
+      ingredient: ['']
     });
-    console.log('FormArray', this.ingredients);
-    console.log('Adding FormGroup', ingredientForm);
-    this.ingredients.push(ingredientForm);
+    
+    const control = <FormArray>this.recipeForm.controls['ingredients'];
+    control.push(ingredientForm);
   }
 
   deleteIngredient(index: number) {
@@ -77,6 +73,13 @@ export class RecipeFormComponent {
     console.log(this.recipeForm);
   }
 
-  submit() { }
+  addImage(addedImage: File) {
+    this.image = addedImage;
+  }
+
+  submit() { 
+    console.log(this.recipeForm);
+    
+  }
 
 }
