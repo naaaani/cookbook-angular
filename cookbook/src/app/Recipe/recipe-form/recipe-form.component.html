@@ -21,7 +21,7 @@
                                     </mat-form-field></td>
                                 <td><mat-form-field>
                                         <mat-label>Ingredient</mat-label>
-                                        <input onClick="console.log(event.target.value)" matInput formControlName="ingredient" type="text"
+                                        <input matInput formControlName="ingredient" type="text"
                                             [matAutocomplete]="auto">
                                         <mat-autocomplete #auto="matAutocomplete">
                                             @for (option of savedIngredients; track option.name) {
