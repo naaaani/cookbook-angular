@@ -1,54 +1,82 @@
 import { Component } from '@angular/core';
-import { FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { FormBuilder } from '@angular/forms';
+import { FormGroup, ReactiveFormsModule, FormArray, FormBuilder } from '@angular/forms';
 import { FileUploadComponent } from '../../file-upload/file-upload.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { RecipeService } from '../recipe.service';
 import { IngredientService } from '../../Ingredient/ingredient.service';
-import { IngredientAdderComponent } from './ingredient-adder/ingredient-adder.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
+import { NgFor } from '@angular/common';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { Ingredient } from '../../Ingredient/ingredient';
+
+
 
 @Component({
   selector: 'app-recipe-form',
   standalone: true,
   imports: [
+    NgFor,
     ReactiveFormsModule,
     FileUploadComponent,
     MatFormFieldModule,
     MatInputModule,
     MatCardModule,
     MatIconModule,
-    IngredientAdderComponent,
+    MatAutocompleteModule,
   ],
   templateUrl: './recipe-form.component.html',
   styleUrl: './recipe-form.component.css'
 })
 export class RecipeFormComponent {
+  savedIngredients: Ingredient[] = [];
   image?: File;
   recipeForm: FormGroup
-  
-  addImage(addedImage: File) {
-    this.image = addedImage;
-  }
 
-  submit() {}
-  
   // formData.append("thumbnail", file);
 
   constructor(
     private formBuilder: FormBuilder,
     private recipeService: RecipeService,
-    private ingredientService: IngredientService
+    private ingredientService: IngredientService,
   ) {
     this.recipeForm = formBuilder.group({
       name: '',
       description: '',
-      ingredients: [],
-      amount: '',
+      ingredients: this.formBuilder.array([]),
     })
+
+    this.ingredientService.getAllIngredients()
+      .then(data => this.savedIngredients = data);
   }
 
+  get ingredients(): FormArray {
+    return this.recipeForm.controls["ingredients"] as FormArray;
+  }
+
+  addImage(addedImage: File) {
+    this.image = addedImage;
+  }
+
+  addIngredient() {
+    const ingredientForm: FormGroup = this.formBuilder.group({
+      amount: '',
+      ingredient: ''
+    });
+    console.log('FormArray', this.ingredients);
+    console.log('Adding FormGroup', ingredientForm);
+    this.ingredients.push(ingredientForm);
+  }
+
+  deleteIngredient(index: number) {
+    this.ingredients.removeAt(index);
+  }
+
+  logFormValue(): void {
+    console.log(this.recipeForm);
+  }
+
+  submit() { }
+
 }
- 
