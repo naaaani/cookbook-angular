@@ -6,6 +6,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { RecipeService } from '../recipe.service';
 import { IngredientService } from '../../Ingredient/ingredient.service';
+import { IngredientAdderComponent } from './ingredient-adder/ingredient-adder.component';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-recipe-form',
@@ -14,7 +17,10 @@ import { IngredientService } from '../../Ingredient/ingredient.service';
     ReactiveFormsModule,
     FileUploadComponent,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatCardModule,
+    MatIconModule,
+    IngredientAdderComponent,
   ],
   templateUrl: './recipe-form.component.html',
   styleUrl: './recipe-form.component.css'
@@ -37,8 +43,10 @@ export class RecipeFormComponent {
     this.recipeForm = formBuilder.group({
       name: '',
       description: '',
-      ingredients: []
+      ingredients: [],
+      amount: '',
     })
   }
 
 }
+ 
