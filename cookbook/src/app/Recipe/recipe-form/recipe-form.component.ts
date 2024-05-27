@@ -32,6 +32,8 @@ export class RecipeFormComponent {
   addImage(addedImage: File) {
     this.image = addedImage;
   }
+
+  submit() {}
   
   // formData.append("thumbnail", file);
 

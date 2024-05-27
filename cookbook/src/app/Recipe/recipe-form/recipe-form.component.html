@@ -9,6 +9,7 @@
             <mat-label>Description: </mat-label>
             <textarea matInput type="textarea" formControlName="description" placeholder="Steps..."></textarea>
         </mat-form-field>
+        <app-ingredient-adder></app-ingredient-adder>
+        <button type="submit" (click)="submit">Submit recipe</button>
     </form>
 </mat-card>
-<app-ingredient-adder></app-ingredient-adder>
