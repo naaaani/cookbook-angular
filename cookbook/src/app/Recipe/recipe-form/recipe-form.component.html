@@ -6,14 +6,13 @@
             <input matInput type="text" formControlName="name" placeholder="Ex. Tiramisu">
         </mat-form-field>
         <mat-form-field class="full-width">
-            <mat-label>Description: </mat-label>
+            <mat-label>Description:</mat-label>
             <textarea matInput type="textarea" formControlName="description" placeholder="Steps..."></textarea>
         </mat-form-field>
         <mat-card>
             <mat-card-title>Ingredients</mat-card-title>
             <mat-card-content formArrayName="ingredients">
-                <div *ngFor="let ingredientForm of ingredients.controls; let i = index" formGroupName="ingredientForm">
-                    <div formControlName="{{i}}">
+                <div *ngFor="let ingredientForm of ingredients.controls; let i = index" [formGroupName]="i">
                         <table cellspacing="0">
                             <tr>
                                 <td><mat-form-field>
@@ -30,17 +29,16 @@
                                             }
                                         </mat-autocomplete>
                                     </mat-form-field></td>
-                                <td><button mat-stroked-button
+                                <td><button type="button" mat-stroked-button
                                         (click)="deleteIngredient(i)"><mat-icon>delete</mat-icon></button>
                                 </td>
                             </tr>
                         </table>
                     </div>
-                </div>
             </mat-card-content>
             <mat-card-actions align="start">
-                <button (click)="addIngredient()"><mat-icon>add</mat-icon>Add ingredient</button>
+                <button type="button" (click)="addIngredient()"><mat-icon>add</mat-icon>Add ingredient</button>
             </mat-card-actions>
-        </mat-card> <button type="submit" (click)="submit">Submit recipe</button>
+        </mat-card> <button type="submit">Submit recipe</button>
     </form>
 </mat-card>
