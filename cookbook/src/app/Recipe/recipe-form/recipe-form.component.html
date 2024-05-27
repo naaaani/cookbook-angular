@@ -1,11 +1,14 @@
-<app-file-upload (fileEvent)="addImage($event)"></app-file-upload>
-<form class="recipeForm" [formGroup]="recipeForm">
-    <mat-form-field class="full-width">
-        <mat-label>Name: </mat-label>
-        <input matInput type="text" formControlName="name" placeholder="Ex. Tiramisu">
-    </mat-form-field>
-    <mat-form-field class="full-width">
-        <mat-label>Description: </mat-label>
-        <textarea matInput type="textarea" formControlName="description" placeholder="Steps..."></textarea>
-    </mat-form-field>
-</form>
+<mat-card>
+    <form class="recipeForm" [formGroup]="recipeForm">
+        <app-file-upload (fileEvent)="addImage($event)"></app-file-upload>
+        <mat-form-field class="full-width">
+            <mat-label>Title: </mat-label>
+            <input matInput type="text" formControlName="name" placeholder="Ex. Tiramisu">
+        </mat-form-field>
+        <mat-form-field class="full-width">
+            <mat-label>Description: </mat-label>
+            <textarea matInput type="textarea" formControlName="description" placeholder="Steps..."></textarea>
+        </mat-form-field>
+    </form>
+</mat-card>
+<app-ingredient-adder></app-ingredient-adder>
