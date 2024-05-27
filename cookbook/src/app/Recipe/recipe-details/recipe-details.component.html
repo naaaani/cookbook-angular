@@ -27,5 +27,8 @@
         <p>
             {{recipe?.description}}
         </p>
+        <p *ngIf="isLoggedIn()">
+        <button mat-button (click)="updateRecipe(recipe?.id)"> Update</button>
+        </p>
     </mat-card-content>
 </mat-card>
