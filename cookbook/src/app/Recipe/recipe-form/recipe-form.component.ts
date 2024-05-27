@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { FormGroup, ReactiveFormsModule, FormArray, FormBuilder } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, ReactiveFormsModule, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { FileUploadComponent } from '../../file-upload/file-upload.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -29,21 +29,19 @@ import { Ingredient } from '../../Ingredient/ingredient';
   templateUrl: './recipe-form.component.html',
   styleUrl: './recipe-form.component.css'
 })
-export class RecipeFormComponent {
+export class RecipeFormComponent implements OnInit {
   savedIngredients: Ingredient[] = [];
   image?: File;
   recipeForm: FormGroup
-
-  // formData.append("thumbnail", file);
 
   constructor(
     private formBuilder: FormBuilder,
     private recipeService: RecipeService,
     private ingredientService: IngredientService,
   ) {
-    this.recipeForm = formBuilder.group({
-      name: [''],
-      description: [''],
+    this.recipeForm = this.formBuilder.group({
+      name: ['', Validators.required],
+      description: ['', Validators.required],
       ingredients: this.formBuilder.array([]),
     });
 
@@ -51,18 +49,20 @@ export class RecipeFormComponent {
       .then(data => this.savedIngredients = data);
   }
 
+  ngOnInit(): void {
+    this.addIngredient();
+  }
+
   get ingredients(): FormArray {
     return this.recipeForm.controls["ingredients"] as FormArray;
   }
 
-  addIngredient() {
-    const ingredientForm: FormGroup = this.formBuilder.group({
-      amount: [''],
-      ingredient: ['']
+  addIngredient(): void {
+    const ingredientGroup = this.formBuilder.group({
+      amount: ['', Validators.required],
+      ingredient: ['', Validators.required]
     });
-    
-    const control = <FormArray>this.recipeForm.controls['ingredients'];
-    control.push(ingredientForm);
+    this.ingredients.push(ingredientGroup);
   }
 
   deleteIngredient(index: number) {
@@ -77,9 +77,12 @@ export class RecipeFormComponent {
     this.image = addedImage;
   }
 
-  submit() { 
-    console.log(this.recipeForm);
-    
+  submit() {    
+    if (this.recipeForm.valid) {
+      console.log(this.recipeForm.value);
+    } else {
+      console.log("Invalid form");
+      this.recipeForm.markAllAsTouched();
+    }
   }
-
 }
