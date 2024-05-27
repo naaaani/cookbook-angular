@@ -53,6 +53,10 @@ export class RecipeFormComponent implements OnInit {
     this.addIngredient();
   }
 
+  displayFn(ingredient: Ingredient): string {
+    return ingredient.name ? ingredient.name : '';
+  }
+
   get ingredients(): FormArray {
     return this.recipeForm.controls["ingredients"] as FormArray;
   }
