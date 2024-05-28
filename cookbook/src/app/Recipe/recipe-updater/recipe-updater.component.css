@@ -1,0 +1,39 @@
+.recipe-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .full-width {
+    width: 100%;
+  }
+  
+  .ingredient-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .ingredient-autocomplete {
+    flex: 1;
+  }
+  
+  mat-card {
+    padding: 20px;
+    margin: 20px;
+  }
+  
+  mat-card-title {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+  }
+  
+  mat-card-actions {
+    margin-top: 10px;
+  }
+  
+  h2 {
+    margin-bottom: 20px;
+  }
+  
