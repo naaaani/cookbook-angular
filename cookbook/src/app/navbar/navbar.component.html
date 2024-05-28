@@ -7,6 +7,9 @@
       </li>
       <li *ngIf="isLoggedIn"><a routerLink="/ingredients" routerLinkActive="active" ariaCurrentWhenActive="page">Ingredients</a>
       </li>
+      <li>
+        <a routerLink="/newRecipe" routerLinkActive="active" ariaCurrentWhenActive="page">New recipe</a>
+      </li>
       <li *ngIf="!isLoggedIn"><a routerLink="/registration" routerLinkActive="active" ariaCurrentWhenActive="page">Register</a>
       </li>
       <li *ngIf="isLoggedIn; else loginLink;">
