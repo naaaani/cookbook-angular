@@ -1,47 +1,56 @@
 <mat-card>
-  <form [formGroup]="recipeForm" (ngSubmit)="saveRecipe(recipe?.id)">
-    <mat-card-header>
-      <img mat-card-image src="../../../assets/placeholder.svg">
-    </mat-card-header>
-    <mat-card-title-group>
-      <mat-card-title class="card-title">{{recipe?.name}}</mat-card-title>
-      <span *ngIf="recipe?.isGlutenFree">
-        <mat-icon svgIcon="gluten_free" matTooltip="Gluten free"></mat-icon>
-      </span>
-      <span *ngIf="recipe?.isDairyFree">
-        <mat-icon svgIcon="dairy_free" matTooltip="Dairy free"></mat-icon>
-      </span>
-      <span *ngIf="recipe?.isVegetarian">
-        <mat-icon svgIcon="vegetarian" matTooltip="Vegetarian"></mat-icon>
-      </span>
-      <span *ngIf="recipe?.isVegan">
-        <mat-icon svgIcon="vegan" matTooltip="Vegan"></mat-icon>
-      </span>
-    </mat-card-title-group>
-    <mat-card-content>
-      <div formArrayName="ingredients">
-        <div *ngFor="let ingredientCtrl of ingredients.controls; let i = index" [formGroupName]="i">
+  <form class="recipe-form" [formGroup]="recipeForm" (ngSubmit)="saveRecipe(recipe?.id)">
+    <h2>Update Recipe</h2>    
+    <mat-form-field class="full-width">
+      <mat-label>Title</mat-label>
+      <input matInput type="text" formControlName="name">
+      <mat-error *ngIf="recipeForm.controls['name'].invalid && recipeForm.controls['name'].touched">
+        Title is required
+      </mat-error>
+    </mat-form-field>
+    
+    <mat-form-field class="full-width">
+      <mat-label>Description</mat-label>
+      <textarea matInput formControlName="description"></textarea>
+      <mat-error *ngIf="recipeForm.controls['description'].invalid && recipeForm.controls['description'].touched">
+        Description is required
+      </mat-error>
+    </mat-form-field>
+    
+    <mat-card>
+      <mat-card-title>Ingredients</mat-card-title>
+      <mat-card-content formArrayName="ingredients">
+        <div *ngFor="let ingredientForm of ingredients.controls; let i = index" [formGroupName]="i" class="ingredient-group">
           <mat-form-field>
-            <input matInput placeholder="Amount" formControlName="amount">
+            <mat-label>Amount</mat-label>
+            <input type="number" matInput formControlName="amount">
           </mat-form-field>
-          <div formGroupName="ingredient">
-            <mat-form-field>
-              <input matInput placeholder="Unit" formControlName="unitOfMeasure">
-            </mat-form-field>
-            <mat-form-field>
-              <input matInput placeholder="Name" formControlName="name">
-            </mat-form-field>
-          </div>
-          <button mat-icon-button color="warn" (click)="removeIngredient(i)">
+          <mat-form-field class="unit-field">
+            <mat-label>Unit</mat-label>
+            <input matInput type="text" formControlName="unit" readonly>
+          </mat-form-field>
+          <mat-form-field class="ingredient-autocomplete">
+            <mat-label>Ingredient</mat-label>
+            <input matInput formControlName="ingredient" [matAutocomplete]="auto">
+            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+              <mat-option *ngFor="let option of savedIngredients" [value]="option">
+                {{ option.name }}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+          
+          <button type="button" mat-icon-button color="warn" (click)="deleteIngredient(i)">
             <mat-icon>delete</mat-icon>
           </button>
         </div>
-      </div>
-      <mat-divider></mat-divider>
-      <mat-form-field>
-        <textarea matInput placeholder="Description" formControlName="description"></textarea>
-      </mat-form-field>
-      <button mat-raised-button color="primary" type="submit">Save</button>
-    </mat-card-content>
+      </mat-card-content>
+      <mat-card-actions>
+        <button type="button" mat-raised-button color="primary" (click)="addIngredient()">
+          <mat-icon>add</mat-icon>Add Ingredient
+        </button>
+      </mat-card-actions>
+    </mat-card> 
+    
+    <button type="submit" mat-raised-button color="accent">Submit Recipe</button>
   </form>
 </mat-card>
