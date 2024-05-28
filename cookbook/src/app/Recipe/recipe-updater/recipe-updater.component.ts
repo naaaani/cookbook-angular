@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormArray, ReactiveFormsModule } from '@angular/forms';
+import { FormGroup, ReactiveFormsModule, FormArray, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Recipe } from '../recipe';
 import { RecipeService } from '../recipe.service';
-import { NgFor, NgIf } from '@angular/common';
-import { MatCardModule } from '@angular/material/card';
-import { MatDividerModule } from '@angular/material/divider';
-import { MatIconModule } from '@angular/material/icon';
-import { MatTooltipModule } from '@angular/material/tooltip';
+import { IngredientService } from '../../Ingredient/ingredient.service';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
+import { NgFor, NgIf } from '@angular/common';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { Ingredient } from '../../Ingredient/ingredient';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-recipe-updater',
@@ -19,20 +19,18 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
   imports: [
     NgIf,
     NgFor,
-    MatCardModule,
-    MatDividerModule,
-    MatIconModule,
-    MatTooltipModule,
+    ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
-    MatButtonModule,
-    ReactiveFormsModule,
-    MatCheckboxModule
+    MatCardModule,
+    MatIconModule,
+    MatAutocompleteModule,
   ],
   templateUrl: './recipe-updater.component.html',
   styleUrls: ['./recipe-updater.component.css']
 })
 export class RecipeUpdaterComponent implements OnInit {
+  savedIngredients: Ingredient[] = [];
   recipeForm: FormGroup;
   recipe?: Recipe;
 
@@ -40,21 +38,24 @@ export class RecipeUpdaterComponent implements OnInit {
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private recipeService: RecipeService
+    private recipeService: RecipeService,
+    private ingredientService: IngredientService,
   ) {
     this.recipeForm = this.fb.group({
       id: [null],
-      name: [''],
-      description: [''],
+      name: ['', Validators.required],
+      description: ['', Validators.required],
       ingredients: this.fb.array([]),
       isVegan: [false],
       isVegetarian: [false], 
-      isGlutenFree: [false], 
+      isGlutenFree: [false],
       isDairyFree: [false]
     });
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
+    this.ingredientService.getAllIngredients().then(data => this.savedIngredients = data);
+
     this.route.paramMap.subscribe(params => {
       const id = Number(params.get('id'));
       if (id != null) {
@@ -65,6 +66,10 @@ export class RecipeUpdaterComponent implements OnInit {
           });
       }
     });
+  }
+
+  displayFn(ingredient: Ingredient | null): string {
+    return ingredient && ingredient.name ? ingredient.name : '';
   }
 
   get ingredients(): FormArray {
@@ -85,21 +90,38 @@ export class RecipeUpdaterComponent implements OnInit {
     recipe.ingredients.forEach(ingredient => {
       this.ingredients.push(this.fb.group({
         id: [ingredient.ingredient.id],
-        ingredient: this.fb.group({
-          id: [ingredient.ingredient.id],
-          unitOfMeasure: [ingredient.ingredient.unitOfMeasure],
-          name: [ingredient.ingredient.name],
-          isGlutenFree: [ingredient.ingredient.isGlutenFree],
-          isDairyFree: [ingredient.ingredient.isDairyFree],
-          isMeatFree: [ingredient.ingredient.isMeatFree],
-          isEggFree: [ingredient.ingredient.isEggFree]
-        }),
-        amount: [ingredient.amount]
+        ingredient: [ingredient.ingredient, Validators.required],
+        unit: [ingredient.ingredient.unitOfMeasure],
+        amount: [ingredient.amount, Validators.required]
       }));
     });
   }
 
-  removeIngredient(index: number) {
+  addIngredient(): void {
+    const ingredientGroup = this.fb.group({
+      id: [0],
+      ingredient: ['', Validators.required],
+      unit: [''], 
+      amount: ['', Validators.required]
+    });
+  
+    const ingredientControl = ingredientGroup.get('ingredient') as FormControl;
+    const subscription: Subscription = ingredientControl.valueChanges.subscribe((selectedIngredient: Ingredient | null) => {
+      if (selectedIngredient) {
+        ingredientGroup.patchValue({ unit: selectedIngredient.unitOfMeasure });
+      }
+    });
+  
+    this.ingredients.push(ingredientGroup);
+    ingredientGroup.valueChanges.subscribe(() => {
+      if (this.ingredients.length === 0) {
+        subscription.unsubscribe();
+      }
+    });
+  }
+
+  
+  deleteIngredient(index: number) {
     this.ingredients.removeAt(index);
   }
 
