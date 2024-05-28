@@ -8,6 +8,7 @@ import { RecipeUpdaterComponent } from './Recipe/recipe-updater/recipe-updater.c
 import { RecipeFormComponent } from './Recipe/recipe-form/recipe-form.component';
 
 
+
 export const routes: Routes = [
     { path: "ingredients", component: IngredientListComponent },
     { path: "registration", component: RegistrationFormComponent },
@@ -15,5 +16,6 @@ export const routes: Routes = [
     { path: "recipe/:id", component: RecipeDetailsComponent},
     { path: "recipes", component: RecipeListComponent },
     { path: "update/:id", component: RecipeUpdaterComponent},
-    { path: "newRecipe", component: RecipeFormComponent }
+    { path: "newRecipe", component: RecipeFormComponent },
+    { path: "update/:id", component: RecipeUpdaterComponent}
 ];
