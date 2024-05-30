@@ -43,7 +43,7 @@ export class RecipeFormComponent implements OnInit {
       description: ['', Validators.required],
       ingredients: this.formBuilder.array([]),
       isVegan: [false],
-      isVegetarian: [false], 
+      isVegetarian: [false],
       isGlutenFree: [false],
       isDairyFree: [false]
     });
@@ -85,12 +85,18 @@ export class RecipeFormComponent implements OnInit {
     this.image = addedImage;
   }
 
-  submit() {    
+  submit() {
     if (this.recipeForm.valid) {
-      const createdRecipe = this.recipeForm.value;
-      console.log(createdRecipe);
+      const formData: FormData = new FormData();
+      formData.append('recipeDTO', new Blob([JSON.stringify(this.recipeForm.value)], {
+        type: 'application/json'
+      }));
 
-      this.recipeService.postRecipe(createdRecipe);
+      if (this.image) {
+        formData.append('image', this.image, this.image.name);
+      }
+
+      this.recipeService.postRecipe(formData);
     } else {
       console.log("Invalid form");
       this.recipeForm.markAllAsTouched();
