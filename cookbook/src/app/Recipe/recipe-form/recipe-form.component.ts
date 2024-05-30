@@ -38,7 +38,7 @@ export class RecipeFormComponent implements OnInit {
     private ingredientService: IngredientService,
   ) {
     this.recipeForm = this.formBuilder.group({
-      id: [0],
+      id: [null],
       name: ['', Validators.required],
       description: ['', Validators.required],
       ingredients: this.formBuilder.array([]),
