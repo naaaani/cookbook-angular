@@ -1,24 +1,20 @@
-<button *ngIf="loggedIn" mat-raised-button color="warn" (click)="logOut()">Log out</button>
-
 <div class="container">
-    <form [formGroup]="loginForm" (ngSubmit)="login()" class="login-form">
-      <mat-card>
-        <mat-card-content>
-          <mat-form-field appearance="fill">
-            <mat-label>Username</mat-label>
-            <input matInput type="text" formControlName="username" placeholder="Username">
-          </mat-form-field>
-          <mat-form-field appearance="fill">
-            <mat-label>Password</mat-label>
-            <input matInput type="password" formControlName="password" placeholder="Password">
-          </mat-form-field>
-        </mat-card-content>
-        <mat-card-actions>
-          <button mat-raised-button color="primary" type="submit">Log In</button>
-        </mat-card-actions>
-      </mat-card>
-    </form>
-  </div>
-  
-  
-  
+  <form [formGroup]="loginForm" (ngSubmit)="login()" class="login-form">
+    <mat-card>
+      <mat-card-content>
+        <mat-form-field appearance="fill">
+          <mat-label>Username</mat-label>
+          <input matInput type="text" formControlName="username" placeholder="Username">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Password</mat-label>
+          <input matInput type="password" formControlName="password" placeholder="Password">
+        </mat-form-field>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" type="submit">Log In</button>
+        <button *ngIf="loggedIn" mat-raised-button color="warn" (click)="logOut()">Log out</button>
+      </mat-card-actions>
+    </mat-card>
+  </form>
+</div>
