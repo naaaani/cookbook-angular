@@ -22,17 +22,16 @@ export class RecipeService {
     return data.json() ?? [];
   }
 
-  async postRecipe(recipe: Recipe) {
+  async postRecipe(recipe: FormData) {
     console.log("recipe: " + JSON.stringify(recipe));
     const token = localStorage.getItem("token");
     
     fetch(this.url, {
       method: "POST",
       headers: { 
-        "Content-Type": "application/json",
         "Authorization": `Bearer ${token}`,
       },
-      body: JSON.stringify(recipe)
+      body: recipe  
     }).then(res =>{
       if (!res.ok) {
         console.error(res.statusText);
