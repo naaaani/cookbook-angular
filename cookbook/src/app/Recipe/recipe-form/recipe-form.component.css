@@ -22,6 +22,10 @@ mat-card.recipe-form-container {
     margin-bottom: 5%;
 }
 
+#ingredient-segment-title {
+    margin: auto;
+}
+
 .ingredients-container {
     margin: auto;
     box-sizing: content-box;
@@ -46,6 +50,6 @@ td {
     color: crimson;
 }
 
-#ingredient-segment-title {
+#submit-button {
     margin: auto;
 }
