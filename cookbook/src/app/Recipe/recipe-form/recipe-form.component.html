@@ -1,6 +1,8 @@
-<mat-card>
-    <form class="recipeForm" [formGroup]="recipeForm" (ngSubmit)="submit()">
-        <app-file-upload (fileEvent)="addImage($event)"></app-file-upload>
+<mat-card class="recipe-form-container">
+    <form class="recipe-form" [formGroup]="recipeForm" (ngSubmit)="submit()">
+        <div id="image-upload-container">
+            <app-file-upload id="image-upload" (fileEvent)="addImage($event)"></app-file-upload>
+        </div>
         <mat-form-field class="full-width">
             <mat-label>Title: </mat-label>
             <input matInput type="text" formControlName="name" placeholder="Ex. Tiramisu">
@@ -9,9 +11,9 @@
             <mat-label>Description:</mat-label>
             <textarea matInput type="textarea" formControlName="description" placeholder="Steps..."></textarea>
         </mat-form-field>
-        <mat-card>
-            <mat-card-title>Ingredients</mat-card-title>
-            <mat-card-content formArrayName="ingredients">
+        <mat-card class="ingredients-container">
+            <mat-card-title id="ingredient-segment-title">Ingredients</mat-card-title>
+            <mat-card-content  class="ingredients" formArrayName="ingredients">
                 <div *ngFor="let ingredientForm of ingredients.controls; let i = index" [formGroupName]="i">
                     <table cellspacing="0">
                         <tr>
@@ -33,16 +35,16 @@
                                 </mat-form-field>
                             </td>
                             <td>
-                                <button type="button" mat-stroked-button
-                                    (click)="deleteIngredient(i)"><mat-icon>delete</mat-icon></button>
+                                <button type="button" mat-stroked-button class="delete-button"
+                                    (click)="deleteIngredient(i)"><mat-icon style="margin: auto;">delete</mat-icon></button>
                             </td>
                         </tr>
                     </table>
                 </div>
             </mat-card-content>
             <mat-card-actions align="start">
-                <button type="button" (click)="addIngredient()"><mat-icon>add</mat-icon>Add ingredient</button>
+                <button mat-button type="button" (click)="addIngredient()"><mat-icon>add</mat-icon>Add ingredient</button>
             </mat-card-actions>
-        </mat-card> <button type="submit">Submit recipe</button>
+        </mat-card> <button mat-stroked-button type="submit">Submit recipe</button>
     </form>
 </mat-card>
