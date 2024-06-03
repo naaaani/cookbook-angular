@@ -13,7 +13,7 @@
         </mat-form-field>
         <mat-card class="ingredients-container">
             <mat-card-title id="ingredient-segment-title">Ingredients</mat-card-title>
-            <mat-card-content  class="ingredients" formArrayName="ingredients">
+            <mat-card-content class="ingredients" formArrayName="ingredients">
                 <div *ngFor="let ingredientForm of ingredients.controls; let i = index" [formGroupName]="i">
                     <table cellspacing="0">
                         <tr>
@@ -36,15 +36,22 @@
                             </td>
                             <td>
                                 <button type="button" mat-stroked-button class="delete-button"
-                                    (click)="deleteIngredient(i)"><mat-icon style="margin: auto;">delete</mat-icon></button>
+                                    (click)="deleteIngredient(i)"><mat-icon
+                                        style="margin: auto;">delete</mat-icon></button>
                             </td>
                         </tr>
                     </table>
                 </div>
             </mat-card-content>
             <mat-card-actions align="start">
-                <button mat-button type="button" (click)="addIngredient()"><mat-icon>add</mat-icon>Add ingredient</button>
+                <button mat-button type="button" (click)="addIngredient()">
+                    <mat-icon>add</mat-icon>Add ingredient
+                </button>
             </mat-card-actions>
-        </mat-card> <button mat-stroked-button type="submit">Submit recipe</button>
+        </mat-card>
+        <mat-card-actions>
+            <button mat-stroked-button color="primary" id="submit-button" type="submit">Submit recipe
+            </button>
+        </mat-card-actions>
     </form>
 </mat-card>
