@@ -7,6 +7,7 @@ import { RecipeService } from '../recipe.service';
 import { IngredientService } from '../../Ingredient/ingredient.service';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
+import { MatButton } from '@angular/material/button';
 import { NgFor } from '@angular/common';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { Ingredient } from '../../Ingredient/ingredient';
@@ -23,6 +24,7 @@ import { Ingredient } from '../../Ingredient/ingredient';
     MatCardModule,
     MatIconModule,
     MatAutocompleteModule,
+    MatButton
   ],
   templateUrl: './recipe-form.component.html',
   styleUrl: './recipe-form.component.css'
