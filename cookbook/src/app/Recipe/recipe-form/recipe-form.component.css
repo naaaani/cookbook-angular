@@ -2,8 +2,54 @@
     width: 100%;
 }
 
-.recipeForm {
-    min-width: 150px;
-    max-width: 500px;
+.recipe-form {
+    margin: auto;
+    margin-top: 5%;
+    width: fit-content;
+}
+
+mat-card.recipe-form-container {
+    margin: 2em;
+    margin: auto;
+    margin-top: 5%;
+    width: fit-content;
+    padding: 10px;
+}
+
+#image-upload-container {
+    margin: auto;
+    width: 50%;
+    margin-bottom: 5%;
+}
+
+#ingredient-segment-title {
+    margin: auto;
+}
+
+.ingredients-container {
+    margin: auto;
+    box-sizing: content-box;
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+table {
+    box-sizing: content-box;
     width: 100%;
+    margin-top: 5%;
+    padding: 5px;
+}
+
+td {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 5px;
+}
+
+.delete-button:hover {
+    color: crimson;
+}
+
+#submit-button {
+    margin: auto;
 }
