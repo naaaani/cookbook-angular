@@ -9,7 +9,6 @@ import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
 import { Router } from '@angular/router';
 
-
 @Component({
   selector: 'app-recipe-details',
   templateUrl: './recipe-details.component.html',
@@ -25,7 +24,9 @@ import { Router } from '@angular/router';
   ],
 })
 export class RecipeDetailsComponent {
-  recipe?: Recipe
+  recipe?: Recipe;
+  placeholder = '../../../assets/palceholder.svg';
+  imageSource = this.placeholder;
 
   constructor(
     private router: Router,
@@ -45,9 +46,9 @@ export class RecipeDetailsComponent {
 
   isLoggedIn () : boolean {
   if (localStorage.hasOwnProperty("token")) {    
-    return true
+    return true;
   }
-  return false
+  return false;
 }
 
   updateRecipe(id : any): void {
