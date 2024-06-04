@@ -1,3 +1,26 @@
-.card-title {
-    padding-left: 20px;
+#title {
+    margin: auto;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+#details-container {
+    display: flex;
+}
+
+.header {
+    margin: auto;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+#title {
+    margin: auto;
+    text-align: center;
+}
+
+#icons {
+    margin: auto;
+    display: flex;
 }

@@ -1,35 +1,34 @@
-<mat-card>
-    <mat-card-header>
-        <img mat-card-image [src]="imageSource" width="200" height="100"
-        alt="picture of food">
+<mat-card id="details-container">
+    <mat-card-header class="header">
+        <img mat-card-image [src]="imageSource" width="200" height="100" alt="picture of food">
     </mat-card-header>
-    <mat-card-title-group>
-        <mat-card-title class="card-title">{{recipe?.name}}</mat-card-title>
-        <span *ngIf="recipe?.isGlutenFree">
+    <mat-card-title id="title">{{recipe?.name}}</mat-card-title>
+    <span id="icons">
+        <div *ngIf="recipe?.isGlutenFree">
             <mat-icon svgIcon="gluten_free" matTooltip="Gluten free"></mat-icon>
-        </span>
-        <span *ngIf="recipe?.isDairyFree">
+        </div>
+        <div *ngIf="recipe?.isDairyFree">
             <mat-icon svgIcon="dairy_free" matTooltip="Dairy free"></mat-icon>
-        </span>
-        <span *ngIf="recipe?.isVegetarian">
+        </div>
+        <div *ngIf="recipe?.isVegetarian">
             <mat-icon svgIcon="vegetarian" matTooltip="Vegetarian"></mat-icon>
-        </span>
-        <span *ngIf="recipe?.isVegan">
+        </div>
+        <div *ngIf="recipe?.isVegan">
             <mat-icon svgIcon="vegan" matTooltip="Vegan"></mat-icon>
-        </span>
-    </mat-card-title-group>
+        </div>
+    </span>
     <mat-divider></mat-divider>
     <hr />
     <mat-card-content>
         <p *ngFor="let ingredient of recipe?.ingredients;">
-        {{ingredient.amount}}{{ingredient.ingredient.unitOfMeasure}} of {{ingredient.ingredient.name}}
+            {{ingredient.amount}}{{ingredient.ingredient.unitOfMeasure}} of {{ingredient.ingredient.name}}
         </p>
         <mat-divider></mat-divider>
         <p>
             {{recipe?.description}}
         </p>
         <p *ngIf="isLoggedIn()">
-        <button mat-button (click)="updateRecipe(recipe?.id)"> Update</button>
+            <button mat-button (click)="updateRecipe(recipe?.id)"> Update</button>
         </p>
     </mat-card-content>
 </mat-card>
