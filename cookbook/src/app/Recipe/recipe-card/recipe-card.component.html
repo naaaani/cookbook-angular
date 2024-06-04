@@ -1,10 +1,12 @@
 <mat-card class="recipe-card">
     <mat-card-header>
-        <img mat-card-image src="../../../assets/palceholder.svg" alt="picture of food" width="200px">
+        <img mat-card-image [src]="imageSource" width="200" height="100"
+         alt="picture of food"
+         >
     </mat-card-header>
     <mat-card-title-group>
         <mat-card-title class="card-title">
-            {{recipe?.name}}
+            {{recipe.name}}
         </mat-card-title>
     </mat-card-title-group>
     <mat-card-content>
