@@ -21,6 +21,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 
 export class RecipeCardComponent implements OnInit {
   placeholderImg: string = '../../../assets/palceholder.svg';
+  linkRoot: string = 'http://localhost:4200';
   imageSource: string = this.placeholderImg;
   @Input() recipe: Recipe = {
     ingredients	 : [{ingredient: {}, amount: 0}],
@@ -36,7 +37,7 @@ export class RecipeCardComponent implements OnInit {
   constructor(private router: Router) {}
   
   ngOnInit(): void {
-    fetch(this.recipe.imageUrl).then(res => {
+    fetch(this.linkRoot + this.recipe.imageUrl).then(res => {
       if (res.ok) {
         return this.recipe.imageUrl;
       }
