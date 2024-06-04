@@ -55,9 +55,9 @@ export class RecipeDetailsComponent {
 
   isLoggedIn(): boolean {
     if (localStorage.hasOwnProperty("token")) {
-      return true
+      return true;
     }
-    return false
+    return false;
   }
 
   updateRecipe(id: any): void {
