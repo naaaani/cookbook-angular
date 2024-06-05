@@ -38,7 +38,7 @@ export class RegistrationFormComponent {
       username: ['', Validators.required],
       password: ['', [
         Validators.required,
-        Validators.pattern('.{5,}')
+        Validators.minLength(5)
       ]],
     });
   }
@@ -47,16 +47,31 @@ export class RegistrationFormComponent {
     if (this.registerForm.valid) {
       this.userService.register(this.registerForm).then(() => {
         this.showRegistrationSuccessDialog();
-      }).catch(() => {
-        this.showRegistrationErrorDialog();
+      }).catch(error => {
+        let errorMessage = 'An error occurred during registration.';
+        if (error.message === 'Username is already taken') {
+          errorMessage = 'Username is already taken.';
+        } else if (error.message === 'Password is too short') {
+          errorMessage = 'Please choose a password that is at least 5 characters long.';
+        }
+        this.showRegistrationErrorDialog(errorMessage);
       });
     } else {
-      this.showRegistrationErrorDialog();
+      const errors = this.registerForm.errors;
+      if (errors) {
+        if (errors['required']) {
+          this.showRegistrationErrorDialog('Please fill in all required fields.');
+        }
+      } else {
+        this.showRegistrationErrorDialog('Please fill in all required fields.');
+      }
     }
   }
 
-  showRegistrationErrorDialog(): void {
-    this.dialog.open(RegistrationErrorDialogComponent);
+  showRegistrationErrorDialog(errorMessage: string): void {
+    this.dialog.open(RegistrationErrorDialogComponent, {
+      data: { message: errorMessage }
+    });
   }
 
   showRegistrationSuccessDialog(): void {

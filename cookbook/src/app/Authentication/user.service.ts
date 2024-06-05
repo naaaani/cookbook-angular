@@ -4,7 +4,9 @@ import { BehaviorSubject } from 'rxjs';
 
 interface AuthResponse {
   username: string,
-  token: string
+  token: string,
+  error: string;
+  
 }
 
 @Injectable({
@@ -45,17 +47,26 @@ export class UserService {
           body: JSON.stringify(formdata.value)
         }
       );
-
+  
       if (!response.ok) {
-        throw new Error('Registration failed');
+        const responseBody = await response.json();
+        if (responseBody.error === "Username is already taken") {
+          throw new Error('Username is already taken');
+        } else if (responseBody.error === "Password is too short") {
+          throw new Error('Password is too short');
+        } else {
+          throw new Error('Registration failed');
+        } 
       }
-
+  
       return response.json();
     } catch (error) {
       console.error('Registration request failed:', error);
       throw error;
     }
   }
+  
+  
 
   async login(formdata: FormGroup): Promise<AuthResponse> {
     try {
