@@ -9,4 +9,5 @@ export interface Recipe {
     isVegetarian : boolean
     isGlutenFree : boolean
     isDairyFree : boolean
+    imageUrl: string
 }
