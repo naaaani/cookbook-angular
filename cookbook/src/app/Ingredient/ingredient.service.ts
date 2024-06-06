@@ -32,7 +32,19 @@ export class IngredientService {
     return await response.json();
   }
 
-  
+  async deleteIngredient(id: string): Promise<void> {
+    const token = localStorage.getItem("token");
+    const response = await fetch(`${this.url}/${id}`, {
+        method: 'DELETE',
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    });
+    if (!response.ok) {
+        throw new Error('Failed to delete ingredient');
+    }
+}
+
   constructor() { 
   }
 }
