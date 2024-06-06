@@ -1,0 +1,16 @@
+.example-card {
+    max-width: 400px;
+    margin: 20px auto;
+  }
+  
+  mat-icon {
+    vertical-align: middle;
+    color: green;
+    margin-right: 8px;
+  }
+  
+  mat-card-content p {
+    display: flex;
+    align-items: center;
+  }
+  

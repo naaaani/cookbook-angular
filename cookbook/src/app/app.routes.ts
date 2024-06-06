@@ -6,6 +6,7 @@ import { RecipeDetailsComponent } from './Recipe/recipe-details/recipe-details.c
 import { RecipeListComponent } from './Recipe/recipe-list/recipe-list.component';
 import { RecipeUpdaterComponent } from './Recipe/recipe-updater/recipe-updater.component';
 import { RecipeFormComponent } from './Recipe/recipe-form/recipe-form.component';
+import { IngredientFormComponent } from './Ingredient/ingredient-form/ingredient-form.component';
 
 
 
@@ -17,5 +18,6 @@ export const routes: Routes = [
     { path: "recipes", component: RecipeListComponent },
     { path: "update/:id", component: RecipeUpdaterComponent},
     { path: "newRecipe", component: RecipeFormComponent },
+    { path: "newIngredient", component: IngredientFormComponent },
     { path: "update/:id", component: RecipeUpdaterComponent}
 ];

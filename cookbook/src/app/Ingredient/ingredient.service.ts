@@ -16,5 +16,23 @@ export class IngredientService {
     return data.json() ?? [];
   }
 
-  constructor() { }
+  async createIngredient(ingredient: Ingredient): Promise<Ingredient> {
+    const token = localStorage.getItem("token");
+    const response = await fetch(this.url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify(ingredient)
+    });
+    if (!response.ok) {
+      throw new Error('Failed to create ingredient');
+    }
+    return await response.json();
+  }
+
+  
+  constructor() { 
+  }
 }
