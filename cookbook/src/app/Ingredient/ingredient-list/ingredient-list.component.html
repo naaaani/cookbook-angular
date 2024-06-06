@@ -1,6 +1,7 @@
 <div *ngIf="ingredients">
     <ul>
         <li *ngFor="let ingredient of ingredients">
+            {{ ingredient.id }}
             {{ ingredient.name }}
             {{ ingredient.unitOfMeasure }}
             {{ ingredient.isDairyFree }}
