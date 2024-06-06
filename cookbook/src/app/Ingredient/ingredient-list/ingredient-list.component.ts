@@ -24,5 +24,16 @@ export class IngredientListComponent {
       this.ingredients = ingredientList;
     });
   }
+
+  async deleteIngredient(id: string): Promise<void> {
+    try {
+        await this.ingredientService.deleteIngredient(id);
+        this.ingredients = this.ingredients.filter(ingredient => {
+            return ingredient.id !== undefined && ingredient.id.toString() !== id;
+        });
+    } catch (error) {
+        console.error('Failed to delete ingredient:', error);
+    }
+}
   
 }

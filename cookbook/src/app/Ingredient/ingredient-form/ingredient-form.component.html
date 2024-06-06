@@ -14,13 +14,30 @@
     </mat-form-field>
 
     <mat-card-content>
-      <mat-checkbox formControlName="isGlutenFree">Gluten-free</mat-checkbox>
-      <br>
-      <mat-checkbox formControlName="isDairyFree">Dairy-free</mat-checkbox>
-      <br>
-      <mat-checkbox formControlName="isMeatFree">Meat-free</mat-checkbox>
-      <br>
-      <mat-checkbox formControlName="isEggFree">Egg-free</mat-checkbox>
+      <div>
+        <label>
+          Gluten-free:
+          <input type="checkbox" formControlName="isGlutenFree">
+        </label>
+      </div>
+      <div>
+        <label>
+          Dairy-free:
+          <input type="checkbox" formControlName="isDairyFree">
+        </label>
+      </div>
+      <div>
+        <label>
+          Meat-free:
+          <input type="checkbox" formControlName="isMeatFree">
+        </label>
+      </div>
+      <div>
+        <label>
+          Egg-free:
+          <input type="checkbox" formControlName="isEggFree">
+        </label>
+      </div>
     </mat-card-content>
 
     <mat-card-actions>
