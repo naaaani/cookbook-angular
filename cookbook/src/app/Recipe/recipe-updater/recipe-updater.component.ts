@@ -9,9 +9,11 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { NgFor, NgIf } from '@angular/common';
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatAutocompleteModule, MatOption } from '@angular/material/autocomplete';
 import { Ingredient } from '../../Ingredient/ingredient';
 import { Subscription } from 'rxjs';
+import { FileUploadComponent } from '../../file-upload/file-upload.component';
+
 
 @Component({
   selector: 'app-recipe-updater',
@@ -21,16 +23,19 @@ import { Subscription } from 'rxjs';
     NgFor,
     ReactiveFormsModule,
     MatFormFieldModule,
+    FileUploadComponent,
+    MatOption,
+    MatAutocompleteModule,
     MatInputModule,
     MatCardModule,
     MatIconModule,
-    MatAutocompleteModule,
   ],
   templateUrl: './recipe-updater.component.html',
   styleUrls: ['./recipe-updater.component.css']
 })
 export class RecipeUpdaterComponent implements OnInit {
   savedIngredients: Ingredient[] = [];
+  image?: File;
   recipeForm: FormGroup;
   recipe?: Recipe;
 
@@ -125,11 +130,22 @@ export class RecipeUpdaterComponent implements OnInit {
     this.ingredients.removeAt(index);
   }
 
-  saveRecipe(id: number | undefined) {
-    if (id !== undefined) {
-      const updatedRecipe = this.recipeForm.value;
-      console.log('Attempting to update recipe:', updatedRecipe);
+  addImage(addedImage: File) {
+    this.image = addedImage;
+  }
 
+  saveRecipe() {
+    if (this.recipeForm.valid) {
+      const formData: FormData = new FormData();
+      formData.append('recipeDTO', new Blob([JSON.stringify(this.recipeForm.value)], {
+        type: 'application/json'
+      }));
+
+      if (this.image) {
+        formData.append('image', this.image, this.image.name);
+      }
+
+      const id = this.recipe?.id;
       const token = localStorage.getItem('token');
 
       if (!token) {
@@ -140,10 +156,9 @@ export class RecipeUpdaterComponent implements OnInit {
       fetch(`/api/recipes/${id}`, {
         method: 'PUT',
         headers: {
-          'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`
         },
-        body: JSON.stringify(updatedRecipe)
+        body: formData
       })
       .then(response => {
         if (!response.ok) {
@@ -162,6 +177,9 @@ export class RecipeUpdaterComponent implements OnInit {
       .catch(error => {
         console.error('There was a problem with the fetch operation:', error);
       });
+    } else {
+      console.log("Invalid form");
+      this.recipeForm.markAllAsTouched();
     }
   }
 }
