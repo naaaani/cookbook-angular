@@ -24,9 +24,7 @@ import { LoginErrorDialogComponent } from '../login-error-dialog/login-error-dia
   styleUrls: ['./login-form.component.css']
 })
 export class LoginFormComponent {
-
   loginForm: FormGroup;
-  loggedIn: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -41,18 +39,13 @@ export class LoginFormComponent {
   }
 
   login(): void {
-    this.userService.login(this.loginForm).then((data) => {
-      if (data && data.token) {
-        localStorage.setItem('token', data.token);
-        this.loggedIn = true;
-        this.router.navigate(['recipes']);
-      } else {
-        this.showLoginErrorDialog();
-      }
-    }).catch(error => {
+    try {
+      this.userService.login(this.loginForm);
+      this.router.navigate(['recipes']);
+    } catch (error) {
       this.showLoginErrorDialog();
       console.error('Login request failed:', error);
-    });
+    }
   }
 
   showLoginErrorDialog(): void {
@@ -61,6 +54,5 @@ export class LoginFormComponent {
 
   logOut(): void {
     this.userService.logOut();
-    this.loggedIn = false;
   }
 }
