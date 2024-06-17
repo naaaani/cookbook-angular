@@ -112,6 +112,7 @@ To get a local copy up and running follow these simple steps.
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 Project Link: [https://github.com/naaaani/cookbook-angular](https://github.com/naaaani/cookbook-angular)
+
 Parent project link: [https://github.com/CodecoolGlobal/el-proyecte-grande-sprint-1-java-hevniki](https://github.com/CodecoolGlobal/el-proyecte-grande-sprint-1-java-hevniki)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
