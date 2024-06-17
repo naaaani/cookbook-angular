@@ -87,6 +87,7 @@ To get a local copy up and running follow these simple steps.
 ### Installation
 
 1. Clone the repo
+
    If you came from <a href="https://github.com/CodecoolGlobal/el-proyecte-grande-sprint-1-java-hevniki">the parent project</a>, skip this step.
    ```sh
    git clone https://github.com/naaaani/cookbook-angular.git
