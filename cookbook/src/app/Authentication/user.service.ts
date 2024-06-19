@@ -55,7 +55,7 @@ export class UserService {
         } 
       }
   
-      return response.json();
+      return response;
     } catch (error) {
       console.error('Registration request failed:', error);
       throw error;
