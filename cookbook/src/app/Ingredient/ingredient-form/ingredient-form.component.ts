@@ -35,11 +35,8 @@ export class IngredientFormComponent implements OnInit {
   ) {
     this.ingredientForm = this.formBuilder.group({
       name: ['', Validators.required],
-      unitOfMeasure: ['', Validators.required],
-      isGlutenFree: [false],
-      isDairyFree: [false],
-      isMeatFree: [false],
-      isEggFree: [false],
+      category: ['', Validators.required],
+      approved: ['', Validators.required],
     });
   }
 
