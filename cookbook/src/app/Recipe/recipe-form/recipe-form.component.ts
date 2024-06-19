@@ -32,7 +32,7 @@ import { Ingredient } from '../../Ingredient/ingredient';
 export class RecipeFormComponent implements OnInit {
   savedIngredients: Ingredient[] = [];
   image?: File;
-  recipeForm: FormGroup
+  recipeForm: FormGroup;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -43,11 +43,14 @@ export class RecipeFormComponent implements OnInit {
       id: [null],
       name: ['', Validators.required],
       description: ['', Validators.required],
+      createdBy: [localStorage.getItem("user")],
       ingredients: this.formBuilder.array([]),
-      isVegan: [false],
-      isVegetarian: [false],
-      isGlutenFree: [false],
-      isDairyFree: [false]
+      vegan: [false],
+      vegetarian: [false],
+      glutenFree: [false],
+      dairyFree: [false],
+      containsTreeNuts: [false],
+      imageUrl: ['']
     });
 
     this.ingredientService.getAllIngredients()
@@ -68,11 +71,8 @@ export class RecipeFormComponent implements OnInit {
 
   addIngredient(): void {
     const ingredientGroup = this.formBuilder.group({
-      id: [0],
       ingredient: ['', Validators.required],
-      amount: ['', Validators.required],
-      category: ['UNKNOWN'],
-      approver: [false]
+      amount: ['', Validators.required]
     });
     this.ingredients.push(ingredientGroup);
   }
