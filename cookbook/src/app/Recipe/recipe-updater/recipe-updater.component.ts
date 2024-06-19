@@ -50,11 +50,13 @@ export class RecipeUpdaterComponent implements OnInit {
       id: [null],
       name: ['', Validators.required],
       description: ['', Validators.required],
+      createdBy: [''],
       ingredients: this.fb.array([]),
       isVegan: [false],
       isVegetarian: [false], 
       isGlutenFree: [false],
-      isDairyFree: [false]
+      isDairyFree: [false],
+      containsTreeNuts: [false],
     });
   }
 
@@ -94,10 +96,9 @@ export class RecipeUpdaterComponent implements OnInit {
 
     recipe.ingredients.forEach(ingredient => {
       this.ingredients.push(this.fb.group({
-        id: [ingredient.ingredient.id],
         ingredient: [ingredient.ingredient, Validators.required],
-        unit: [ingredient.ingredient.unitOfMeasure],
-        amount: [ingredient.amount, Validators.required]
+        amount: [ingredient.amount, Validators.required],
+        category: [ingredient]
       }));
     });
   }
@@ -110,19 +111,7 @@ export class RecipeUpdaterComponent implements OnInit {
       amount: ['', Validators.required]
     });
   
-    const ingredientControl = ingredientGroup.get('ingredient') as FormControl;
-    const subscription: Subscription = ingredientControl.valueChanges.subscribe((selectedIngredient: Ingredient | null) => {
-      if (selectedIngredient) {
-        ingredientGroup.patchValue({ unit: selectedIngredient.unitOfMeasure });
-      }
-    });
-  
     this.ingredients.push(ingredientGroup);
-    ingredientGroup.valueChanges.subscribe(() => {
-      if (this.ingredients.length === 0) {
-        subscription.unsubscribe();
-      }
-    });
   }
 
   

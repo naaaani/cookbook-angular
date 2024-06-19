@@ -22,7 +22,7 @@
     <hr />
     <mat-card-content>
         <p *ngFor="let ingredient of recipe?.ingredients;">
-        {{ingredient.amount}}{{ingredient.ingredient.unitOfMeasure}} of {{ingredient.ingredient.name}}
+        {{ingredient.amount}} {{ingredient.ingredient}}
         </p>
         <mat-divider></mat-divider>
         <p>

@@ -70,7 +70,9 @@ export class RecipeFormComponent implements OnInit {
     const ingredientGroup = this.formBuilder.group({
       id: [0],
       ingredient: ['', Validators.required],
-      amount: ['', Validators.required]
+      amount: ['', Validators.required],
+      category: ['UNKNOWN'],
+      approver: [false]
     });
     this.ingredients.push(ingredientGroup);
   }
