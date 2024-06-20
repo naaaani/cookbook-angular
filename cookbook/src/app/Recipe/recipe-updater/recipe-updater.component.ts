@@ -34,7 +34,7 @@ import { FileUploadComponent } from '../../file-upload/file-upload.component';
   styleUrls: ['./recipe-updater.component.css']
 })
 export class RecipeUpdaterComponent implements OnInit {
-  savedIngredients: Ingredient[] = [];
+  savedIngredients: string[] = [];
   image?: File;
   recipeForm: FormGroup;
   recipe?: Recipe;
@@ -52,16 +52,18 @@ export class RecipeUpdaterComponent implements OnInit {
       description: ['', Validators.required],
       createdBy: [''],
       ingredients: this.fb.array([]),
-      isVegan: [false],
-      isVegetarian: [false], 
-      isGlutenFree: [false],
-      isDairyFree: [false],
+      vegan: [false],
+      vegetarian: [false], 
+      glutenFree: [false],
+      dairyFree: [false],
       containsTreeNuts: [false],
     });
   }
 
   ngOnInit(): void {
-    this.ingredientService.getAllIngredients().then(data => this.savedIngredients = data);
+    this.ingredientService.getAllIngredients().then(data => {
+      this.savedIngredients = data.map(ingredient => ingredient.name);
+    });
 
     this.route.paramMap.subscribe(params => {
       const id = Number(params.get('id'));
@@ -75,8 +77,8 @@ export class RecipeUpdaterComponent implements OnInit {
     });
   }
 
-  displayFn(ingredient: Ingredient | null): string {
-    return ingredient && ingredient.name ? ingredient.name : '';
+  displayFn(ingredient: string | null): string {
+    return ingredient && ingredient? ingredient : '';
   }
 
   get ingredients(): FormArray {
@@ -88,10 +90,10 @@ export class RecipeUpdaterComponent implements OnInit {
       id: recipe.id,
       name: recipe.name,
       description: recipe.description,
-      isVegan: recipe.vegan,
-      isVegetarian: recipe.vegetarian,
-      isGlutenFree: recipe.glutenFree,
-      isDairyFree: recipe.dairyFree
+      vegan: recipe.vegan,
+      vegetarian: recipe.vegetarian,
+      glutenFree: recipe.glutenFree,
+      dairyFree: recipe.dairyFree
     });
 
     recipe.ingredients.forEach(ingredient => {
