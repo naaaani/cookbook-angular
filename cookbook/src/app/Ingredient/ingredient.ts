@@ -1,6 +1,6 @@
 export interface Ingredient {
     id?: number;
-    name?: string;
+    name: string;
     category?: string;
     approved?: boolean;
 }
