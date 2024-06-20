@@ -85,29 +85,26 @@ export class RecipeUpdaterComponent implements OnInit {
 
   setFormData(recipe: Recipe) {
     this.recipeForm.patchValue({ 
-      id: recipe.id, 
-      name: recipe.name, 
-      description: recipe.description, 
-      isVegan: recipe.isVegan,
-      isVegetarian: recipe.isVegetarian,
-      isGlutenFree: recipe.isGlutenFree,
-      isDairyFree: recipe.isDairyFree
+      id: recipe.id,
+      name: recipe.name,
+      description: recipe.description,
+      isVegan: recipe.vegan,
+      isVegetarian: recipe.vegetarian,
+      isGlutenFree: recipe.glutenFree,
+      isDairyFree: recipe.dairyFree
     });
 
     recipe.ingredients.forEach(ingredient => {
       this.ingredients.push(this.fb.group({
         ingredient: [ingredient.ingredient, Validators.required],
         amount: [ingredient.amount, Validators.required],
-        category: [ingredient]
       }));
     });
   }
 
   addIngredient(): void {
     const ingredientGroup = this.fb.group({
-      id: [0],
       ingredient: ['', Validators.required],
-      unit: [''], 
       amount: ['', Validators.required]
     });
   
