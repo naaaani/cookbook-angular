@@ -3,6 +3,7 @@ import { FormGroup } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
 
 interface AuthResponse {
+  id: number,
   username: string,
   token: string,
   error: string;
@@ -26,6 +27,7 @@ export class UserService {
   }
 
   logOut() {
+    localStorage.removeItem("id");
     localStorage.removeItem("loggedIn");
     localStorage.removeItem("token");
     this.setLoginStatus(false);
@@ -83,6 +85,8 @@ export class UserService {
       const data = await response.json();
 
       if (data && data.token) {
+        console.log(data);
+        localStorage.setItem("id", data.id); 
         localStorage.setItem("token", data.token);
         localStorage.setItem('loggedIn', JSON.stringify(true));
         this.setLoginStatus(true);      
