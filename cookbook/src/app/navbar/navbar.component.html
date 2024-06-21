@@ -12,6 +12,8 @@
       </li>
       <li *ngIf="isLoggedIn"><a routerLink="/newIngredient" routerLinkActive="active" ariaCurrentWhenActive="page">New Ingredient</a>
       </li>
+      <li *ngIf="isLoggedIn"><a routerLink="/user/:id" routerLinkActive="active" ariaCurrentWhenActive="page">User page</a>
+      </li>
       <li *ngIf="!isLoggedIn"><a routerLink="/registration" routerLinkActive="active" ariaCurrentWhenActive="page">Register</a>
       </li>
       <li *ngIf="isLoggedIn; else loginLink;">

@@ -22,6 +22,21 @@ export class RecipeService {
     return data.json() ?? [];
   }
 
+  async getRecipesByUserId(userId: string): Promise<Recipe[]> {
+    try {
+      const response = await fetch(`${this.url}/user/${userId}`);
+
+      if (!response.ok) {
+        throw new Error('Failed to fetch recipes');
+      }
+
+      return response.json() as Promise<Recipe[]>;
+    } catch (error) {
+      console.error('Error fetching recipes:', error);
+      throw new Error('Failed to fetch recipes');
+    }
+  }
+
   async postRecipe(recipe: FormData) {
     console.log("recipe: " + JSON.stringify(recipe));
     const token = localStorage.getItem("token");
