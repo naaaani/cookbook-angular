@@ -79,7 +79,7 @@ export class UserService {
 
       if (!response.ok) {
         const errorMessage = await response.text();
-        return {ok: false, username: '', token: '', error: errorMessage}
+        return {id: 0, ok: false, username: '', token: '', error: errorMessage}
       }
       
       const data = await response.json();
@@ -91,11 +91,11 @@ export class UserService {
         this.setLoginStatus(true);
       }
       
-      return {ok: true, username: data.username, token: data.token, error: ''};
+      return {id: data.id, ok: true, username: data.username, token: data.token, error: ''};
 
     } catch (err) {
       console.error('Login request failed:', err);
-      return {ok: false, username: '', token: '', error: "Something went wrong"}
+      return {id: 0, ok: false, username: '', token: '', error: "Something went wrong"}
     }
   }
 
