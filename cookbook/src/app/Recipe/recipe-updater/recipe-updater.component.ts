@@ -34,7 +34,7 @@ import { FileUploadComponent } from '../../file-upload/file-upload.component';
   styleUrls: ['./recipe-updater.component.css']
 })
 export class RecipeUpdaterComponent implements OnInit {
-  savedIngredients: Ingredient[] = [];
+  savedIngredients: string[] = [];
   image?: File;
   recipeForm: FormGroup;
   recipe?: Recipe;
@@ -50,16 +50,20 @@ export class RecipeUpdaterComponent implements OnInit {
       id: [null],
       name: ['', Validators.required],
       description: ['', Validators.required],
+      createdBy: [''],
       ingredients: this.fb.array([]),
-      isVegan: [false],
-      isVegetarian: [false], 
-      isGlutenFree: [false],
-      isDairyFree: [false]
+      vegan: [false],
+      vegetarian: [false], 
+      glutenFree: [false],
+      dairyFree: [false],
+      containsTreeNuts: [false],
     });
   }
 
   ngOnInit(): void {
-    this.ingredientService.getAllIngredients().then(data => this.savedIngredients = data);
+    this.ingredientService.getAllIngredients().then(data => {
+      this.savedIngredients = data.map(ingredient => ingredient.name);
+    });
 
     this.route.paramMap.subscribe(params => {
       const id = Number(params.get('id'));
@@ -73,8 +77,8 @@ export class RecipeUpdaterComponent implements OnInit {
     });
   }
 
-  displayFn(ingredient: Ingredient | null): string {
-    return ingredient && ingredient.name ? ingredient.name : '';
+  displayFn(ingredient: string | null): string {
+    return ingredient && ingredient? ingredient : '';
   }
 
   get ingredients(): FormArray {
@@ -83,46 +87,30 @@ export class RecipeUpdaterComponent implements OnInit {
 
   setFormData(recipe: Recipe) {
     this.recipeForm.patchValue({ 
-      id: recipe.id, 
-      name: recipe.name, 
-      description: recipe.description, 
-      isVegan: recipe.isVegan,
-      isVegetarian: recipe.isVegetarian,
-      isGlutenFree: recipe.isGlutenFree,
-      isDairyFree: recipe.isDairyFree
+      id: recipe.id,
+      name: recipe.name,
+      description: recipe.description,
+      vegan: recipe.vegan,
+      vegetarian: recipe.vegetarian,
+      glutenFree: recipe.glutenFree,
+      dairyFree: recipe.dairyFree
     });
 
     recipe.ingredients.forEach(ingredient => {
       this.ingredients.push(this.fb.group({
-        id: [ingredient.ingredient.id],
         ingredient: [ingredient.ingredient, Validators.required],
-        unit: [ingredient.ingredient.unitOfMeasure],
-        amount: [ingredient.amount, Validators.required]
+        amount: [ingredient.amount, Validators.required],
       }));
     });
   }
 
   addIngredient(): void {
     const ingredientGroup = this.fb.group({
-      id: [0],
       ingredient: ['', Validators.required],
-      unit: [''], 
       amount: ['', Validators.required]
     });
   
-    const ingredientControl = ingredientGroup.get('ingredient') as FormControl;
-    const subscription: Subscription = ingredientControl.valueChanges.subscribe((selectedIngredient: Ingredient | null) => {
-      if (selectedIngredient) {
-        ingredientGroup.patchValue({ unit: selectedIngredient.unitOfMeasure });
-      }
-    });
-  
     this.ingredients.push(ingredientGroup);
-    ingredientGroup.valueChanges.subscribe(() => {
-      if (this.ingredients.length === 0) {
-        subscription.unsubscribe();
-      }
-    });
   }
 
   

@@ -24,13 +24,15 @@ export class RecipeCardComponent implements OnInit {
   linkRoot: string = 'http://localhost:4200';
   imageSource: string = this.placeholderImg;
   @Input() recipe: Recipe = {
-    ingredients	 : [{ingredient: {}, amount: 0}],
-    name : '',
-    description	: '',
-    isVegan	: false,
-    isVegetarian : false,
-    isGlutenFree : false,
-    isDairyFree : false,
+    ingredients: [{ingredient: '', amount: '0'}],
+    name: '',
+    description: '',
+    createdBy: '',
+    vegan: false,
+    vegetarian: false,
+    glutenFree: false,
+    dairyFree: false,
+    containsTreeNuts: false,
     imageUrl: '',
   };
 

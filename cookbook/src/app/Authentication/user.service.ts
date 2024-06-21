@@ -4,10 +4,10 @@ import { BehaviorSubject } from 'rxjs';
 
 interface AuthResponse {
   id: number,
+  ok: boolean,
   username: string,
   token: string,
   error: string;
-  
 }
 
 @Injectable({
@@ -57,7 +57,7 @@ export class UserService {
         } 
       }
   
-      return response.json();
+      return response;
     } catch (error) {
       console.error('Registration request failed:', error);
       throw error;
@@ -79,24 +79,23 @@ export class UserService {
 
       if (!response.ok) {
         const errorMessage = await response.text();
-        throw new Error(`Login failed: ${errorMessage}`);
+        return {ok: false, username: '', token: '', error: errorMessage}
       }
       
       const data = await response.json();
 
       if (data && data.token) {
-        console.log(data);
         localStorage.setItem("id", data.id); 
         localStorage.setItem("token", data.token);
         localStorage.setItem('loggedIn', JSON.stringify(true));
-        this.setLoginStatus(true);      
+        this.setLoginStatus(true);
       }
       
-      return data;
+      return {ok: true, username: data.username, token: data.token, error: ''};
 
-    } catch (error) {
-      console.error('Login request failed:', error);
-      throw error;
+    } catch (err) {
+      console.error('Login request failed:', err);
+      return {ok: false, username: '', token: '', error: "Something went wrong"}
     }
   }
 

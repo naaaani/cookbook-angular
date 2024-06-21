@@ -39,13 +39,15 @@ export class LoginFormComponent {
   }
 
   login(): void {
-    try {
-      this.userService.login(this.loginForm);
-      this.router.navigate(['recipes']);
-    } catch (error) {
-      this.showLoginErrorDialog();
-      console.error('Login request failed:', error);
-    }
+    this.userService.login(this.loginForm)
+      .then(res => {
+        if (res.ok) {
+          this.router.navigate(['recipes']);
+        } else {
+          this.showLoginErrorDialog();
+          console.error('Login request failed:', res.error);
+        }
+      });
   }
 
   showLoginErrorDialog(): void {
