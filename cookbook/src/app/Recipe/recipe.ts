@@ -11,21 +11,3 @@ export interface Recipe {
     containsTreeNuts: boolean
     imageUrl: string
 }
-
-// {
-//     "id": 1,
-//     "ingredients": [
-//         {
-//             "ingredient": "Flour",
-//             "amount": "300 g"
-//         }
-//     ],
-//     "name": "Vegan Pizza",
-//     "description": "Delicious vegan pizza recipe",
-//     "createdBy": "admin",
-//     "vegan": true,
-//     "vegetarian": true,
-//     "dairyFree": true,
-//     "glutenFree": true,
-//     "containsTreeNuts": false,
-//     "imageUrl": "/api/recipes/1/image"
