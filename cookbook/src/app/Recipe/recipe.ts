@@ -1,13 +1,13 @@
-import { Ingredient } from "../Ingredient/ingredient"
-
 export interface Recipe {
-    id ? : number
-    ingredients	 : [{ ingredient : Ingredient, amount : number}]
-    name : string
-    description	: string
-    isVegan	: boolean
-    isVegetarian : boolean
-    isGlutenFree : boolean
-    isDairyFree : boolean
+    id?: number
+    ingredients: [{ ingredient: string , amount: string}]
+    name: string
+    description: string
+    createdBy: string
+    vegan: boolean
+    vegetarian: boolean
+    glutenFree: boolean
+    dairyFree: boolean
+    containsTreeNuts: boolean
     imageUrl: string
 }

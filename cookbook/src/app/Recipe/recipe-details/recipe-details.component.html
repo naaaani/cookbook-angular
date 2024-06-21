@@ -5,16 +5,16 @@
     </mat-card-header>
     <mat-card-title-group>
         <mat-card-title class="card-title">{{recipe?.name}}</mat-card-title>
-        <span *ngIf="recipe?.isGlutenFree">
+        <span *ngIf="recipe?.glutenFree">
             <mat-icon svgIcon="gluten_free" matTooltip="Gluten free"></mat-icon>
         </span>
-        <span *ngIf="recipe?.isDairyFree">
+        <span *ngIf="recipe?.dairyFree">
             <mat-icon svgIcon="dairy_free" matTooltip="Dairy free"></mat-icon>
         </span>
-        <span *ngIf="recipe?.isVegetarian">
+        <span *ngIf="recipe?.vegetarian">
             <mat-icon svgIcon="vegetarian" matTooltip="Vegetarian"></mat-icon>
         </span>
-        <span *ngIf="recipe?.isVegan">
+        <span *ngIf="recipe?.vegan">
             <mat-icon svgIcon="vegan" matTooltip="Vegan"></mat-icon>
         </span>
     </mat-card-title-group>
@@ -22,7 +22,7 @@
     <hr />
     <mat-card-content>
         <p *ngFor="let ingredient of recipe?.ingredients;">
-        {{ingredient.amount}}{{ingredient.ingredient.unitOfMeasure}} of {{ingredient.ingredient.name}}
+        {{ingredient.amount}} {{ingredient.ingredient}}
         </p>
         <mat-divider></mat-divider>
         <p>

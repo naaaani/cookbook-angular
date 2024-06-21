@@ -7,39 +7,15 @@
         Ingredient name is required
       </mat-error>
     </mat-form-field>
-
-    <mat-form-field class="full-width">
-      <mat-label>Unit of Measure</mat-label>
-      <input matInput formControlName="unitOfMeasure" placeholder="Ex. g">
-    </mat-form-field>
-
     <mat-card-content>
-      <div>
-        <label>
-          Gluten-free:
-          <input type="checkbox" formControlName="isGlutenFree">
-        </label>
-      </div>
-      <div>
-        <label>
-          Dairy-free:
-          <input type="checkbox" formControlName="isDairyFree">
-        </label>
-      </div>
-      <div>
-        <label>
-          Meat-free:
-          <input type="checkbox" formControlName="isMeatFree">
-        </label>
-      </div>
-      <div>
-        <label>
-          Egg-free:
-          <input type="checkbox" formControlName="isEggFree">
-        </label>
-      </div>
+      <mat-select formControlName="category">
+        <mat-option *ngFor="let category of categories" [value]="category" >{{category}}</mat-option>
+      </mat-select>
     </mat-card-content>
-
+    <mat-card-content>
+      Approved: 
+      <mat-checkbox formControlName="approved"></mat-checkbox>
+    </mat-card-content>
     <mat-card-actions>
       <button mat-stroked-button color="primary" type="submit">Submit Ingredient</button>
     </mat-card-actions>

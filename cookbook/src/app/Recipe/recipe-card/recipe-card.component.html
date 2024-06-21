@@ -10,16 +10,16 @@
         </mat-card-title>
     </mat-card-title-group>
     <mat-card-content>
-        <span *ngIf="recipe?.isGlutenFree">
+        <span *ngIf="recipe?.glutenFree">
             <mat-icon matTooltip="Gluten free" svgIcon="gluten_free"></mat-icon>
         </span>
-        <span *ngIf="recipe?.isVegan">
+        <span *ngIf="recipe?.vegan">
             <mat-icon matTooltip="Vegan" svgIcon="vegan"></mat-icon>
         </span>
-        <span *ngIf="recipe?.isDairyFree">
+        <span *ngIf="recipe?.dairyFree">
             <mat-icon matTooltip="Dairy free" svgIcon="dairy_free"></mat-icon>
         </span>
-        <span *ngIf="recipe?.isVegetarian">
+        <span *ngIf="recipe?.vegetarian">
             <mat-icon matTooltip="Vegetarian" svgIcon="vegetarian"></mat-icon>
         </span>
         <mat-card-actions>

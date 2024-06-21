@@ -29,13 +29,7 @@
               <td>
                 <mat-form-field>
                   <mat-label>Amount</mat-label>
-                  <input type="number" matInput formControlName="amount">
-                </mat-form-field>
-              </td>
-              <td>
-                <mat-form-field>
-                  <mat-label>Unit</mat-label>
-                  <input matInput type="text" formControlName="unit" readonly>
+                  <input type="text" matInput formControlName="amount">
                 </mat-form-field>
               </td>
               <td>
@@ -44,7 +38,7 @@
                   <input matInput formControlName="ingredient" type="text" [matAutocomplete]="auto">
                   <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
                     <mat-option *ngFor="let option of savedIngredients" [value]="option">
-                      {{option.name}}
+                      {{option}}
                     </mat-option>
                   </mat-autocomplete>
                 </mat-form-field>
