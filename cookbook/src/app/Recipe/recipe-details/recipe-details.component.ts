@@ -27,7 +27,7 @@ import { Router } from '@angular/router';
 
 export class RecipeDetailsComponent {
   linkRoot: string = 'http://localhost:4200';
-  placeholder = '../../../assets/palceholder.svg';
+  placeholder = '../../../assets/placeholder.svg';
   imageSource: string = this.placeholder;
 
   recipe?: Recipe
