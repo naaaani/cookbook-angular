@@ -1,9 +1,13 @@
+<div *ngIf="error">
+  <app-error-message [errorMessage]="error"></app-error-message>
+</div>
+
 <mat-card class="recipe-form-container">
   <form class="recipe-form" [formGroup]="recipeForm" (ngSubmit)="saveRecipe()">
     <div id="image-upload-container">
       <app-file-upload id="image-upload" (fileEvent)="addImage($event)"></app-file-upload>
     </div>
-    
+
     <mat-form-field class="full-width">
       <mat-label>Title</mat-label>
       <input matInput type="text" formControlName="name" placeholder="Ex. Tiramisu">

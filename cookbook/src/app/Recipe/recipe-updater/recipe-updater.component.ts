@@ -10,9 +10,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { NgFor, NgIf } from '@angular/common';
 import { MatAutocompleteModule, MatOption } from '@angular/material/autocomplete';
-import { Ingredient } from '../../Ingredient/ingredient';
-import { Subscription } from 'rxjs';
 import { FileUploadComponent } from '../../file-upload/file-upload.component';
+import {ErrorMessageComponent} from "../../error-message/error-message.component";
 
 
 @Component({
@@ -29,6 +28,7 @@ import { FileUploadComponent } from '../../file-upload/file-upload.component';
     MatInputModule,
     MatCardModule,
     MatIconModule,
+    ErrorMessageComponent,
   ],
   templateUrl: './recipe-updater.component.html',
   styleUrls: ['./recipe-updater.component.css']
@@ -38,6 +38,7 @@ export class RecipeUpdaterComponent implements OnInit {
   image?: File;
   recipeForm: FormGroup;
   recipe?: Recipe;
+  error: string | null = null;
 
   constructor(
     private fb: FormBuilder,
@@ -53,7 +54,7 @@ export class RecipeUpdaterComponent implements OnInit {
       createdBy: [''],
       ingredients: this.fb.array([]),
       vegan: [false],
-      vegetarian: [false], 
+      vegetarian: [false],
       glutenFree: [false],
       dairyFree: [false],
       containsTreeNuts: [false],
@@ -69,9 +70,12 @@ export class RecipeUpdaterComponent implements OnInit {
       const id = Number(params.get('id'));
       if (id != null) {
         this.recipeService.getRecipe(id)
-          .then((recipe: Recipe) => {
-            this.recipe = recipe;
-            this.setFormData(recipe);
+          .then(({data, error}) => {
+            this.recipe = data || undefined;
+            if (this.recipe) {
+              this.setFormData(this.recipe);
+            }
+            this.error = error;
           });
       }
     });
@@ -86,7 +90,7 @@ export class RecipeUpdaterComponent implements OnInit {
   }
 
   setFormData(recipe: Recipe) {
-    this.recipeForm.patchValue({ 
+    this.recipeForm.patchValue({
       id: recipe.id,
       name: recipe.name,
       description: recipe.description,
@@ -109,11 +113,11 @@ export class RecipeUpdaterComponent implements OnInit {
       ingredient: ['', Validators.required],
       amount: ['', Validators.required]
     });
-  
+
     this.ingredients.push(ingredientGroup);
   }
 
-  
+
   deleteIngredient(index: number) {
     this.ingredients.removeAt(index);
   }

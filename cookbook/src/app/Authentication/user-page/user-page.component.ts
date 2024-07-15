@@ -3,6 +3,7 @@ import { RecipeService } from '../../Recipe/recipe.service';
 import { Recipe } from '../../Recipe/recipe';
 import { NgFor, NgIf } from '@angular/common';
 import { RecipeCardComponent } from '../../Recipe/recipe-card/recipe-card.component';
+import { ErrorMessageComponent } from "../../error-message/error-message.component";
 
 @Component({
   selector: 'app-user-page',
@@ -10,13 +11,14 @@ import { RecipeCardComponent } from '../../Recipe/recipe-card/recipe-card.compon
   imports: [NgIf,
     NgFor,
     RecipeCardComponent,
+    ErrorMessageComponent
   ],
   templateUrl: './user-page.component.html',
   styleUrl: './user-page.component.css'
 })
 export class UserPageComponent {
   recipes: Recipe[] = [];
-  errorMessage: string = '';
+  errorMessage: string | null = null;
 
   constructor(private recipeService: RecipeService) {}
 
@@ -31,12 +33,11 @@ export class UserPageComponent {
     this.loadUserRecipes(userId);
   }
 
-  async loadUserRecipes(userId: string) {
-    try {
-      this.recipes = await this.recipeService.getRecipesByUserId(userId);
-    } catch (error) {
-      console.error('Error fetching recipes:', error);
-      this.errorMessage = 'Error loading recipes.';
-    }
+  loadUserRecipes(userId: string) {
+    this.recipeService.getRecipesByUserId(userId)
+        .then(({data, error}) => {
+          this.recipes = data || [];
+          this.errorMessage = error;
+        });
   }
-  }
+}

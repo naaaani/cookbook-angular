@@ -1,5 +1,7 @@
     <h1>Your Recipes</h1>
-    <div *ngIf="errorMessage">{{ errorMessage }}</div>
+    <div *ngIf="errorMessage">
+        <app-error-message [errorMessage]="errorMessage"></app-error-message>
+    </div>
     <div *ngIf="!errorMessage && recipes.length === 0">No recipes found for this user.</div>
     <div *ngIf="recipes.length > 0">
     <div *ngFor="let recipe of recipes">

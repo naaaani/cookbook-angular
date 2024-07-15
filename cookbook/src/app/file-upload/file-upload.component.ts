@@ -13,7 +13,7 @@ import { MatIcon } from '@angular/material/icon';
 
 export class FileUploadComponent {
   fileName = '';
-  imageSrc = '../../assets/palceholder.svg';
+  imageSrc = '../../assets/placeholder.svg';
   @Output() fileEvent = new EventEmitter<File>();
 
   constructor() { }
@@ -26,7 +26,7 @@ export class FileUploadComponent {
       this.imageSrc = URL.createObjectURL(uploadedFile);
       this.fileEvent.emit(uploadedFile);
     } else {
-      this.imageSrc = '../../assets/palceholder.svg';
+      this.imageSrc = '../../assets/placeholder.svg';
     }
   }
 }
