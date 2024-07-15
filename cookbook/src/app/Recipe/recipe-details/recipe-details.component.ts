@@ -30,7 +30,8 @@ export class RecipeDetailsComponent {
   placeholder = '../../../assets/placeholder.svg';
   imageSource: string = this.placeholder;
 
-  recipe?: Recipe
+  recipe?: Recipe;
+  error: string | null = null;
 
   constructor(
     private router: Router,
@@ -41,14 +42,17 @@ export class RecipeDetailsComponent {
       const id = Number(params.get('id'))
       if (id != null) {
         this.recipeService.getRecipe(id)
-          .then((recipe: Recipe) => {
-            this.recipe = recipe;
-            fetch(this.linkRoot + this.recipe.imageUrl).then(res => {
-              if (res.ok) {
-                return this.recipe ? this.recipe.imageUrl : this.placeholder;
-              }
-              return this.placeholder;
-            }).then(res => this.imageSource = res);
+          .then(({data, error}) => {
+            this.recipe = data || undefined;
+            this.error = error;
+            if (this.recipe) {
+              fetch(this.linkRoot + this.recipe.imageUrl).then(res => {
+                if (res.ok) {
+                  return this.recipe ? this.recipe.imageUrl : this.placeholder;
+                }
+                return this.placeholder;
+              }).then(res => this.imageSource = res);
+            }
           });
       }
     });
