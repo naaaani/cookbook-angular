@@ -1,5 +1,8 @@
+<div *ngIf="error">
+    <app-error-message [errorMessage]="error"></app-error-message>
+</div>
 <ul style="list-style-type: none;">
-    <li *ngFor="let recipe of recipes;">
+    <li *ngFor="let recipe of recipes">
         <app-recipe-card [recipe]="recipe"></app-recipe-card>
     </li>
 </ul>
