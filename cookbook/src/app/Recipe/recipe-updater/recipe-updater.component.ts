@@ -11,6 +11,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { NgFor, NgIf } from '@angular/common';
 import { MatAutocompleteModule, MatOption } from '@angular/material/autocomplete';
 import { FileUploadComponent } from '../../file-upload/file-upload.component';
+import {ErrorMessageComponent} from "../../error-message/error-message.component";
 
 
 @Component({
@@ -27,6 +28,7 @@ import { FileUploadComponent } from '../../file-upload/file-upload.component';
     MatInputModule,
     MatCardModule,
     MatIconModule,
+    ErrorMessageComponent,
   ],
   templateUrl: './recipe-updater.component.html',
   styleUrls: ['./recipe-updater.component.css']
@@ -36,6 +38,7 @@ export class RecipeUpdaterComponent implements OnInit {
   image?: File;
   recipeForm: FormGroup;
   recipe?: Recipe;
+  error: string | null = null;
 
   constructor(
     private fb: FormBuilder,
@@ -67,9 +70,12 @@ export class RecipeUpdaterComponent implements OnInit {
       const id = Number(params.get('id'));
       if (id != null) {
         this.recipeService.getRecipe(id)
-          .then((recipe: Recipe) => {
-            this.recipe = recipe;
-            this.setFormData(recipe);
+          .then(({data, error}) => {
+            this.recipe = data || undefined;
+            if (this.recipe) {
+              this.setFormData(this.recipe);
+            }
+            this.error = error;
           });
       }
     });
