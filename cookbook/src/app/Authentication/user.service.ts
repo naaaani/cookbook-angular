@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
+import {jwtDecode} from "jwt-decode";
 
 interface AuthResponse {
   id: number,
@@ -10,13 +11,17 @@ interface AuthResponse {
   error: string;
 }
 
+interface JwtPayload {
+  exp: number;
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
   private loggedInSubject = new BehaviorSubject<boolean>(this.loadAuthState());
   isLoggedIn$ = this.loggedInSubject.asObservable();
-  
+
   registerUrl = "/api/auth/register";
   loginUrl = "/api/auth/authenticate";
 
@@ -45,7 +50,7 @@ export class UserService {
           body: JSON.stringify(formdata.value)
         }
       );
-  
+
       if (!response.ok) {
         const responseBody = await response.json();
         if (responseBody.error === "Username is already taken") {
@@ -54,9 +59,9 @@ export class UserService {
           throw new Error('Password is too short');
         } else {
           throw new Error('Registration failed');
-        } 
+        }
       }
-  
+
       return response;
     } catch (error) {
       console.error('Registration request failed:', error);
@@ -81,16 +86,16 @@ export class UserService {
         const errorMessage = await response.text();
         return {id: 0, ok: false, username: '', token: '', error: errorMessage}
       }
-      
+
       const data = await response.json();
 
       if (data && data.token) {
-        localStorage.setItem("id", data.id); 
+        localStorage.setItem("id", data.id);
         localStorage.setItem("token", data.token);
         localStorage.setItem('loggedIn', JSON.stringify(true));
         this.setLoginStatus(true);
       }
-      
+
       return {id: data.id, ok: true, username: data.username, token: data.token, error: ''};
 
     } catch (err) {
@@ -102,6 +107,17 @@ export class UserService {
   private loadAuthState(): boolean {
     const loggedIn = JSON.parse(localStorage.getItem('loggedIn') || 'false');
     const token = localStorage.getItem('token');
-    return loggedIn && !!token;
+
+    if (!loggedIn || !token) {
+      return false;
+    }
+    try {
+      const decodedToken: JwtPayload = jwtDecode(token);
+      const currentTime = Math.floor(Date.now() / 1000);
+      return decodedToken.exp >= currentTime;
+    } catch (error) {
+      console.error('Invalid token', error);
+      return false;
+    }
   }
 }
