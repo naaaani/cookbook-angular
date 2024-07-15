@@ -1,3 +1,7 @@
+<div *ngIf="error">
+    <app-error-message [errorMessage]="error"></app-error-message>
+</div>
+
 <mat-card>
     <mat-card-header>
         <img mat-card-image [src]="imageSource" width="200" height="100"

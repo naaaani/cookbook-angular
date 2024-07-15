@@ -8,6 +8,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
 import { Router } from '@angular/router';
+import {ErrorMessageComponent} from "../../error-message/error-message.component";
 
 
 @Component({
@@ -21,7 +22,8 @@ import { Router } from '@angular/router';
     MatCardModule,
     MatDividerModule,
     MatIcon,
-    MatTooltip
+    MatTooltip,
+    ErrorMessageComponent
   ],
 })
 
